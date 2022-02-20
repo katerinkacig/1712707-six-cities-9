@@ -25,9 +25,7 @@ ReactDOM.render(
         }
         />
         <Route path={AppRoute.Login} element={<Login/>}/>
-        <Route path={AppRoute.Offer} element={<Room/>}>
-          <Route path=':id' element={<Room/>}/>
-        </Route>
+        <Route path={AppRoute.Offer} element={<Room/>} />
         <Route path='*' element={<NonFound/>}/>
       </Routes>
     </BrowserRouter>
