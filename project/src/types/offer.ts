@@ -13,6 +13,7 @@ export type Offer = {
   properties: string[],
   host: Host,
   reviews?: OfferReview[],
+  coordinates: Coordinates,
 }
 
 export type Host = {
@@ -38,4 +39,9 @@ export type OfferOptions = {
   placeCardImgWrapClass: string,
   placeCardClass: string,
   placeCardInfoClass?: string,
+}
+
+export type Coordinates = {
+  lat: number,
+  lng: number
 }

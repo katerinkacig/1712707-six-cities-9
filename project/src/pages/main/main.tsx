@@ -1,14 +1,17 @@
 import PlacesList from '../../components/plases-list/places-list';
 import Header from '../../components/header/header';
+import Map from '../../components/map/map';
 import {Offer, OfferOptions} from '../../types/offer';
+import {City} from '../../types/city';
 
 type MainScreenProps = {
   placesCount: number,
   offers: Offer[],
   offerOptions: OfferOptions,
+  city: City,
 }
 
-function Main({placesCount, offers, offerOptions}:MainScreenProps): JSX.Element {
+function Main({placesCount, offers, offerOptions, city}:MainScreenProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <Header/>
@@ -76,7 +79,7 @@ function Main({placesCount, offers, offerOptions}:MainScreenProps): JSX.Element 
               </div>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"></section>
+              <Map city={city} points={offers}/>
             </div>
           </div>
         </div>
