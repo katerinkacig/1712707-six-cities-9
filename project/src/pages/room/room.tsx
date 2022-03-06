@@ -1,12 +1,18 @@
-import { useParams } from 'react-router-dom';
+import React from 'react';
+import {useParams} from 'react-router-dom';
+
 import Header from '../../components/header/header';
 import ReviewsForm from '../../components/reviews-form/reviews-form';
 import Review from '../../components/review/review';
+import NonFound from '../not-found/not-found';
 import {getOfferById} from '../../mocks/offers';
 
 function Room(): JSX.Element {
   const params = useParams();
   const offer = getOfferById(params.id);
+
+  if (!offer) {return <NonFound/>;}
+
   return (
     <div className="page">
       <Header/>
@@ -67,14 +73,14 @@ function Room(): JSX.Element {
                 <h2 className="property__inside-title">What&apos;s inside</h2>
                 <ul className="property__inside-list">
                   {offer && offer.properties &&
-                    offer.properties.map((property, id) => {
-                      const keyValue = `${id}-${property}`;
-                      return(
-                        <li key={keyValue} className="property__inside-item">
-                          {property}
-                        </li>
-                      );
-                    })}
+                  offer.properties.map((property, id) => {
+                    const keyValue = `${id}-${property}`;
+                    return (
+                      <li key={keyValue} className="property__inside-item">
+                        {property}
+                      </li>
+                    );
+                  })}
                 </ul>
               </div>
               <div className="property__host">

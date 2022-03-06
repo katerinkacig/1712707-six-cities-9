@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {BrowserRouter, Routes, Route} from 'react-router-dom';
+import {BrowserRouter, Routes, Route, Navigate} from 'react-router-dom';
 import App from './components/app/app';
 import Favorites from './pages/favorites/favorites';
 import Login from './pages/login/login';
@@ -9,6 +9,7 @@ import PrivateRoute from './components/private-route/private-route';
 import Room from './pages/room/room';
 import {AuthorizationStatus, AppRoute} from './const';
 import {offers} from './mocks/offers';
+import {CITY} from './mocks/city';
 
 const Settings = {
   PLACES_COUNT: 312,
@@ -35,7 +36,15 @@ ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
-        <Route index element={<App placesCount={Settings.PLACES_COUNT} offers={offers} offerOptions = {Settings.OFFER_OPTIONS}/>}></Route>
+        <Route index element={
+          <App
+            placesCount={Settings.PLACES_COUNT}
+            offers={offers}
+            offerOptions = {Settings.OFFER_OPTIONS}
+            city={CITY}
+          />
+        }
+        />
         <Route path={AppRoute.Favorites} element={
           <PrivateRoute authorizationStatus = {AuthorizationStatus.Auth}>
             <Favorites offers={offers} offerOptions = {Settings.OFFER_FAVOURITES_OPTIONS}/>
@@ -43,6 +52,7 @@ ReactDOM.render(
         }
         />
         <Route path={AppRoute.Login} element={<Login/>}/>
+        <Route path={AppRoute.Offer} element={<Navigate to='/'/>}/>
         <Route path={`${AppRoute.Offer}/:id`} element={<Room/>} />
         <Route path='*' element={<NonFound/>}/>
       </Routes>
