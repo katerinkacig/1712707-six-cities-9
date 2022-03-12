@@ -14,6 +14,7 @@ export type Offer = {
   host: Host,
   reviews?: OfferReview[],
   coordinates: Coordinates,
+  city: string
 }
 
 export type Host = {
