@@ -1,5 +1,6 @@
 import {useEffect, useState} from 'react';
 import leaflet from 'leaflet';
+import {ZOOM_MAP} from '../const';
 
 function useMap(mapRef, city) {
   const [map, setMap] = useState(null);
@@ -11,7 +12,7 @@ function useMap(mapRef, city) {
           lat: city.lat,
           lng: city.lng,
         },
-        zoom: city.zoom,
+        zoom: ZOOM_MAP,
       });
 
       leaflet.tileLayer(
@@ -22,6 +23,10 @@ function useMap(mapRef, city) {
       ).addTo(mapLayer);
 
       setMap(mapLayer);
+    }
+
+    if (map !== null && city) {
+      map.panTo([city.lat, city.lng]);
     }
   }, [mapRef, map, city]);
 
