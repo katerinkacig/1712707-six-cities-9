@@ -1,18 +1,17 @@
 import {useEffect, useState} from 'react';
 import leaflet from 'leaflet';
-import {ZOOM_MAP} from '../const';
 
 function useMap(mapRef, city) {
   const [map, setMap] = useState(null);
 
   useEffect(() => {
-    if (mapRef.current !== null && map === null) {
+    if (mapRef.current !== null && map === null && city?.location) {
       const mapLayer = leaflet.map(mapRef.current, {
         center: {
-          lat: city.lat,
-          lng: city.lng,
+          lat: city.location.latitude,
+          lng: city.location.longitude,
         },
-        zoom: ZOOM_MAP,
+        zoom: city.location.zoom,
       });
 
       leaflet.tileLayer(
@@ -25,8 +24,8 @@ function useMap(mapRef, city) {
       setMap(mapLayer);
     }
 
-    if (map !== null && city) {
-      map.panTo([city.lat, city.lng]);
+    if (map !== null && city?.location) {
+      map.panTo([city.location.latitude, city.location.longitude]);
     }
   }, [mapRef, map, city]);
 

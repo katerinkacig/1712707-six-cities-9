@@ -11,6 +11,7 @@ import Room from './pages/room/room';
 import {AuthorizationStatus, AppRoute} from './const';
 import {offers} from './mocks/offers';
 import {store} from './store';
+import {fetchOfferAction} from './store/api-actions';
 
 const Settings = {
   OFFER_OPTIONS: {
@@ -31,6 +32,8 @@ const Settings = {
     placeCardInfoClass: 'favorites__card-info',
   },
 };
+
+store.dispatch(fetchOfferAction());
 
 ReactDOM.render(
   <React.StrictMode>

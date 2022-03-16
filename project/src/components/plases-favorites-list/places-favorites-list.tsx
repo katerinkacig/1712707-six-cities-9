@@ -9,7 +9,7 @@ type PlacesListProps = {
 function PlacesFavoritesList({offers, offerOptions}:PlacesListProps): JSX.Element {
   return (
     <>
-      {offers.filter((offer) => offer.favorites).map((offer) => <PlaceCard key={offer.id} offer={offer} options={offerOptions}/>)}
+      {offers.filter((offer) => offer.isFavorite).map((offer) => <PlaceCard key={offer.id} offer={offer} options={offerOptions}/>)}
     </>
   );
 }

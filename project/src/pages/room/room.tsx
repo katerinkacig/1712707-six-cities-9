@@ -3,12 +3,21 @@ import {useParams} from 'react-router-dom';
 
 import Header from '../../components/header/header';
 import ReviewsForm from '../../components/reviews-form/reviews-form';
-import Review from '../../components/review/review';
+//import Review from '../../components/review/review';
 import NonFound from '../not-found/not-found';
-import {getOfferById} from '../../mocks/offers';
+import { Offer } from '../../types/offer';
+import {useAppSelector} from '../../hooks';
 
 function Room(): JSX.Element {
+  const { offers } = useAppSelector((state) => state);
   const params = useParams();
+
+  function getOfferById(id:number | string | undefined):Offer | undefined {
+    if (!id) {
+      return undefined;
+    }
+    return offers.find((offer) => (offer as Offer).id === +id);
+  }
   const offer = getOfferById(params.id);
 
   if (!offer) {return <NonFound/>;}
@@ -32,15 +41,15 @@ function Room(): JSX.Element {
           </div>
           <div className="property__container container">
             <div className="property__wrapper">
-              {offer && offer.premium &&
+              {offer && offer.isPremium &&
               <div className="property__mark">
                 <span>Premium</span>
               </div>}
               <div className="property__name-wrapper">
                 <h1 className="property__name">
-                  {offer && offer.name}
+                  {offer && offer.title}
                 </h1>
-                <button className={`property__bookmark-button ${(offer && offer.favorites) && 'property__bookmark-button--active'} button`} type="button">
+                <button className={`property__bookmark-button ${(offer && offer.isFavorite) && 'property__bookmark-button--active'} button`} type="button">
                   <svg className="property__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark"></use>
                   </svg>
@@ -72,12 +81,12 @@ function Room(): JSX.Element {
               <div className="property__inside">
                 <h2 className="property__inside-title">What&apos;s inside</h2>
                 <ul className="property__inside-list">
-                  {offer && offer.properties &&
-                  offer.properties.map((property, id) => {
-                    const keyValue = `${id}-${property}`;
+                  {offer && offer.goods &&
+                  offer.goods.map((good, id) => {
+                    const keyValue = `${id}-${good}`;
                     return (
                       <li key={keyValue} className="property__inside-item">
-                        {property}
+                        {good}
                       </li>
                     );
                   })}
@@ -86,30 +95,30 @@ function Room(): JSX.Element {
               <div className="property__host">
                 <h2 className="property__host-title">Meet the host</h2>
                 <div className="property__host-user user">
-                  <div className={`property__avatar-wrapper ${offer && offer.host.pro && 'property__avatar-wrapper--pro'} user__avatar-wrapper`}>
-                    <img className="property__avatar user__avatar" src={offer && offer.host.src} width="74" height="74" alt="Host avatar"/>
+                  <div className={`property__avatar-wrapper ${offer && offer.host.isPro && 'property__avatar-wrapper--pro'} user__avatar-wrapper`}>
+                    <img className="property__avatar user__avatar" src={offer && offer.host.avatarUrl} width="74" height="74" alt="Host avatar"/>
                   </div>
                   <span className="property__user-name">
                     {offer && offer.host.name}
                   </span>
-                  {offer && offer.host.pro &&
+                  {offer && offer.host.isPro &&
                   <span className="property__user-status">
                     Pro
                   </span>}
                 </div>
                 <div className="property__description">
                   <p className="property__text">
-                    {offer && offer.host.description}
+                    {offer && offer.description}
                   </p>
                 </div>
               </div>
               <section className="property__reviews reviews">
                 <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">1</span></h2>
                 <ul className="reviews__list">
-                  {offer && offer.reviews && offer.reviews.map((review, id) => {
+                  {/*{offer && offer.reviews && offer.reviews.map((review, id) => {
                     const keyValue = `review-${id}`;
                     return <Review key={keyValue} review={review}/>;
-                  })}
+                  })}*/}
                 </ul>
                 <ReviewsForm/>
               </section>
