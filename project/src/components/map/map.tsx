@@ -3,8 +3,7 @@ import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
 import useMap from '../../hooks/useMap';
-import {City} from '../../types/city';
-import {Offer} from '../../types/offer';
+import {Offer, City} from '../../types/offer';
 import {URL_MARKER} from '../../const';
 
 type MapProps = {
@@ -27,8 +26,8 @@ function Map({city, points}: MapProps): JSX.Element {
       points.map((point) => {
         leaflet
           .marker({
-            lat: point.coordinates.lat,
-            lng: point.coordinates.lng,
+            lat: point.location.latitude,
+            lng: point.location.longitude,
           }, {
             icon: customIcon,
           })

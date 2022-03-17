@@ -23,7 +23,7 @@ function Main({offerOptions}:MainScreenProps): JSX.Element {
             {activeOffers.length !== 0 &&
               <section className="cities__places places">
                 <h2 className="visually-hidden">Places</h2>
-                <b className="places__found">{activeOffers.length} places to stay in {activeCity.title}</b>
+                <b className="places__found">{activeOffers.length} places to stay in {activeCity.name}</b>
                 <form className="places__sorting" action="#" method="get">
                   <span className="places__sorting-caption">Sort by</span>
                   <span className="places__sorting-type" tabIndex={0}>
@@ -51,7 +51,7 @@ function Main({offerOptions}:MainScreenProps): JSX.Element {
                 </div>
               </section>}
             <div className="cities__right-section">
-              {activeOffers.length !== 0 && <Map city={activeCity} points={activeOffers}/>}
+              {activeOffers.length && <Map city={activeCity} points={activeOffers}/>}
             </div>
           </div>
         </div>

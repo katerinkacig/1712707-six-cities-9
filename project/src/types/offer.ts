@@ -1,27 +1,38 @@
-export type Offer = {
-  id: number,
-  srcPreview: string,
-  images: string[],
+export type City = {
+  location?: Location
   name: string,
-  type: string,
-  price: number,
-  rating: number,
-  premium: boolean,
-  favorites: boolean,
-  bedrooms: string,
-  maxAdults: number,
-  properties: string[],
-  host: Host,
-  reviews?: OfferReview[],
-  coordinates: Coordinates,
-  city: string
+}
+
+export type Location ={
+  latitude: number,
+  longitude: number,
+  zoom: number,
 }
 
 export type Host = {
-  src: string,
+  avatarUrl: string,
+  id: number,
+  isPro: boolean,
   name: string,
-  description: string,
-  pro: boolean
+}
+
+export type Offer = {
+    bedrooms: number,
+    city: City,
+    description: string,
+    goods: string[],
+    host: Host,
+    id: number,
+    images: string[],
+    isFavorite: boolean,
+    isPremium: boolean,
+    location: Location,
+    maxAdults: number,
+    previewImage: string,
+    price: number,
+    rating: number,
+    title: string,
+    type: string,
 }
 
 export type OfferReview = {
@@ -40,9 +51,4 @@ export type OfferOptions = {
   placeCardImgWrapClass: string,
   placeCardClass: string,
   placeCardInfoClass?: string,
-}
-
-export type Coordinates = {
-  lat: number,
-  lng: number
 }

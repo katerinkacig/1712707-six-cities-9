@@ -11,6 +11,17 @@ export enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
+export enum APIRoute {
+  Offers = '/hotels',
+}
+
 export const URL_MARKER = 'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg';
 
-export const ZOOM_MAP = 12;
+export const cities = [
+  { name: 'Paris' },
+  { name: 'Cologne' },
+  { name: 'Brussels' },
+  { name: 'Amsterdam' },
+  { name: 'Hamburg' },
+  { name: 'Dusseldorf' },
+];
