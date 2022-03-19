@@ -13,6 +13,14 @@ export enum AuthorizationStatus {
 
 export enum APIRoute {
   Offers = '/hotels',
+  Login = '/login',
+  Logout = '/logout',
+}
+
+export enum HTTP_CODE {
+  BAD_REQUEST = 400,
+  UNAUTHORIZED = 401,
+  NOT_FOUND = 404,
 }
 
 export const URL_MARKER = 'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg';
