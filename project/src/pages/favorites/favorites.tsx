@@ -8,7 +8,6 @@ type FavoritesProps = {
   offerOptions: OfferOptions,
 }
 
-
 function Favorites({offers, offerOptions}:FavoritesProps): JSX.Element {
   return (
     <div className="page">
