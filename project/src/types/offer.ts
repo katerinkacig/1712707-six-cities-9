@@ -35,14 +35,6 @@ export type Offer = {
     type: string,
 }
 
-export type OfferReview = {
-  src: string,
-  name: string,
-  rating: 80,
-  date: string,
-  text: string,
-}
-
 export type OfferOptions = {
   imgSize: {
     width: string,

@@ -39,9 +39,7 @@ function Main({offerOptions}:MainScreenProps): JSX.Element {
                     <li className="places__option" tabIndex={0}>Top rated first</li>
                   </ul>
                 </form>
-                <div className="cities__places-list places__list tabs__content">
-                  <PlacesList offers={activeOffers} offerOptions={offerOptions}/>
-                </div>
+                <PlacesList offerOptions={offerOptions}/>
               </section>}
             {activeOffers.length === 0 &&
               <section className="cities__no-places">

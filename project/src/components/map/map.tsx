@@ -17,8 +17,8 @@ function Map({city, points}: MapProps): JSX.Element {
 
   const customIcon = leaflet.icon({
     iconUrl: URL_MARKER,
-    iconSize: [40, 40],
-    iconAnchor: [20, 40],
+    iconSize: [27, 39],
+    iconAnchor: [13.5, 40],
   });
 
   useEffect(() => {

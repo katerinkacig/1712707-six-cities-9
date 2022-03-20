@@ -1,8 +1,10 @@
+import React from 'react';
+import {Navigate, Route, Routes} from 'react-router-dom';
+
 import Main from '../../pages/main/main';
 import Spinner from '../spinner/spinner';
 import {useAppSelector} from '../../hooks';
 import {isCheckedAuth} from '../../utils';
-import {Navigate, Route, Routes} from 'react-router-dom';
 import {AppRoute} from '../../const';
 import PrivateRoute from '../private-route/private-route';
 import Favorites from '../../pages/favorites/favorites';
@@ -10,7 +12,6 @@ import {offers} from '../../mocks/offers';
 import Login from '../../pages/login/login';
 import Room from '../../pages/room/room';
 import NonFound from '../../pages/not-found/not-found';
-import React from 'react';
 import HistoryRouter from '../history-route/history-route';
 import browserHistory from '../../browser-history';
 
@@ -31,6 +32,14 @@ const Settings = {
     placeCardImgWrapClass: 'favorites__image-wrapper',
     placeCardClass: 'favorites__card',
     placeCardInfoClass: 'favorites__card-info',
+  },
+  OFFER_NEAR_OPTIONS: {
+    imgSize: {
+      width: '260',
+      height: '200',
+    },
+    placeCardImgWrapClass: 'near-places__image-wrapper',
+    placeCardClass: 'near-places__card',
   },
 };
 
@@ -55,7 +64,7 @@ function App(): JSX.Element {
         />
         <Route path={AppRoute.Login} element={<Login/>}/>
         <Route path={AppRoute.Offer} element={<Navigate to='/'/>}/>
-        <Route path={`${AppRoute.Offer}/:id`} element={<Room/>} />
+        <Route path={`${AppRoute.Offer}/:id`} element={<Room offerOptions={Settings.OFFER_NEAR_OPTIONS}/>} />
         <Route path='*' element={<NonFound/>}/>
       </Routes>
     </HistoryRouter>
