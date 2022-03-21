@@ -1,5 +1,5 @@
 import React, {useEffect, useRef} from 'react';
-import leaflet from 'leaflet';
+import leaflet, { LayerGroup, Map } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
 import useMap from '../../hooks/useMap';
@@ -30,28 +30,32 @@ function MapNear({activePoint}:activePointProps): JSX.Element {
   });
 
   useEffect(() => {
+    let layerGroup: LayerGroup;
     if (map) {
-      nearOffers.map((point, index) => {
-        if(index < 3){
-          leaflet
-            .marker({
-              lat: point.location.latitude,
-              lng: point.location.longitude,
-            }, {
-              icon: customIcon,
-            })
-            .addTo(map);
-        }
-      });
-      leaflet
+      const nearMarkers = nearOffers.slice(0, 3).map((point, index) => leaflet
+        .marker({
+          lat: point.location.latitude,
+          lng: point.location.longitude,
+        }, {
+          icon: customIcon,
+        }));
+      const activeMarker = leaflet
         .marker({
           lat: activePoint.location.latitude,
           lng: activePoint.location.longitude,
         }, {
           icon: customActiveIcon,
-        })
-        .addTo(map);
+        });
+
+      layerGroup = leaflet.layerGroup([activeMarker, ...nearMarkers]);
+      layerGroup.addTo(map);
     }
+
+    return () => {
+      if (map) {
+        (map as Map).removeLayer(layerGroup);
+      }
+    };
   });
 
   return (
