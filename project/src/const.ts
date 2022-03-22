@@ -33,3 +33,10 @@ export const cities = [
   { name: 'Hamburg' },
   { name: 'Dusseldorf' },
 ];
+
+export enum SortOption {
+  popular = 'Popular',
+  priceAsc = 'Price: low to high',
+  priceDesc = 'Price: high to low',
+  ratingDesc = 'Top rated first',
+}

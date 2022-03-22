@@ -5,6 +5,8 @@ export const changeCityAction = createAction('changeCity', (value) => ({payload:
 
 export const loadOffersAction = createAction('loadOffers', (value) => ({payload: value}));
 
+export const sortActiveOffersAction = createAction('sortActiveOffers', (value) => ({payload: value}));
+
 export const requireAuthorizationAction = createAction<AuthorizationStatus>('requireAuthorization');
 
 export const redirectToRoute = createAction<AppRoute>('redirectToRoute');

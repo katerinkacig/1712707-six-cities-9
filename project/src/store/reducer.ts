@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-import {changeCityAction, loadOffersAction, requireAuthorizationAction} from './action';
+import {changeCityAction, loadOffersAction, requireAuthorizationAction, sortActiveOffersAction} from './action';
 import {AuthorizationStatus, cities} from '../const';
 import { Offer, City } from '../types/offer';
 
@@ -48,6 +48,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(requireAuthorizationAction, (state, action) => {
       state.authorizationStatus = action.payload;
+    })
+    .addCase(sortActiveOffersAction, (state, action) => {
+      state.activeOffers = action.payload;
     });
 });
 
