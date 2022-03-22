@@ -10,7 +10,7 @@ import { useAppSelector } from '../../hooks';
 import {store} from '../../store';
 import {fetchNearOffersAction, fetchReviewsAction} from '../../store/api-actions';
 import PlacesNearList from '../../components/plases-near-list/places-near-list';
-import MapNear from '../../components/map-near/map-near';
+import Map from '../../components/map/map';
 
 type RoomProps = {
   offerOptions: OfferOptions
@@ -18,6 +18,7 @@ type RoomProps = {
 
 function Room({offerOptions}:RoomProps): JSX.Element {
   const { offers } = useAppSelector((state) => state);
+  const { nearOffers } = useAppSelector((state) => state);
   const params = useParams();
 
   function getOfferById(id:number | string | undefined):Offer | undefined {
@@ -139,7 +140,7 @@ function Room({offerOptions}:RoomProps): JSX.Element {
               </section>
             </div>
           </div>
-          <MapNear activePoint={offer}/>
+          <Map activePoint={offer} points={nearOffers} classMap='property__map'/>
         </section>
         <div className="container">
           <section className="near-places places">

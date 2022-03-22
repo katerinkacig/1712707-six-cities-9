@@ -49,7 +49,7 @@ function Main({offerOptions}:MainScreenProps): JSX.Element {
                 </div>
               </section>}
             <div className="cities__right-section">
-              {activeOffers.length && <Map city={activeCity} points={activeOffers}/>}
+              {activeOffers.length && <Map points={activeOffers} classMap='cities__map'/>}
             </div>
           </div>
         </div>
