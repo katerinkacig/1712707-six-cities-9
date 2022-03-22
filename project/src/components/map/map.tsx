@@ -1,43 +1,70 @@
 import {useEffect, useRef} from 'react';
-import leaflet from 'leaflet';
+import leaflet, { LayerGroup, Map as LeafletMap } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
 import useMap from '../../hooks/useMap';
-import {Offer, City} from '../../types/offer';
-import {URL_MARKER} from '../../const';
+import {Offer} from '../../types/offer';
+import {URL_ACTIVE_MARKER, URL_MARKER} from '../../const';
 
 type MapProps = {
-  city: City,
   points: Offer[],
+  activePoint?: Offer,
+  classMap?: string,
 }
 
-function Map({city, points}: MapProps): JSX.Element {
+function Map({points, activePoint, classMap}: MapProps): JSX.Element {
   const mapRef = useRef(null);
+  const city = points?.[0]?.city;
   const map = useMap(mapRef, city);
 
   const customIcon = leaflet.icon({
     iconUrl: URL_MARKER,
-    iconSize: [40, 40],
-    iconAnchor: [20, 40],
+    iconSize: [27, 39],
+    iconAnchor: [13.5, 40],
+  });
+
+  const customActiveIcon = leaflet.icon({
+    iconUrl: URL_ACTIVE_MARKER,
+    iconSize: [27, 39],
+    iconAnchor: [13.5, 40],
   });
 
   useEffect(() => {
+    let layerGroup: LayerGroup;
     if (map) {
-      points.map((point) => {
-        leaflet
+      const markers = points.map((point) => leaflet
+        .marker({
+          lat: point.location.latitude,
+          lng: point.location.longitude,
+        }, {
+          icon: customIcon,
+        }));
+
+      if(activePoint){
+        const activeMarker = leaflet
           .marker({
-            lat: point.location.latitude,
-            lng: point.location.longitude,
+            lat: activePoint.location.latitude,
+            lng: activePoint.location.longitude,
           }, {
-            icon: customIcon,
-          })
-          .addTo(map);
-      });
+            icon: customActiveIcon,
+          });
+
+        markers.push(activeMarker);
+      }
+
+      layerGroup = leaflet.layerGroup(markers);
+      layerGroup.addTo(map);
     }
+
+    return () => {
+      if (map) {
+        (map as LeafletMap).removeLayer(layerGroup);
+      }
+    };
   });
 
   return (
-    <section className="cities__map map" ref={mapRef}></section>
+    <section className={`${classMap} map`} ref={mapRef}></section>
   );
 }
 

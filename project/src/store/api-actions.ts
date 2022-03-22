@@ -4,11 +4,18 @@ import {api} from './index';
 import {store} from '../store';
 import {Offer} from '../types/offer';
 import {APIRoute, AppRoute, AuthorizationStatus} from '../const';
-import {loadOffersAction, redirectToRoute, requireAuthorizationAction} from './action';
+import {
+  loadNearOffersAction,
+  loadOffersAction,
+  loadReviewsAction,
+  redirectToRoute,
+  requireAuthorizationAction
+} from './action';
 import {AuthData} from '../types/auth-data';
 import {UserData} from '../types/user-data';
 import {dropToken, saveToken} from '../services/token';
 import {errorHandle} from '../services/error-handle';
+import {Review} from '../types/review';
 
 export const fetchOfferAction = createAsyncThunk(
   'fetchOffers',
@@ -16,6 +23,30 @@ export const fetchOfferAction = createAsyncThunk(
     try{
       const { data } = await api.get<Offer[]>(APIRoute.Offers);
       store.dispatch(loadOffersAction(data));
+    } catch (error) {
+      errorHandle(error);
+    }
+  },
+);
+
+export const fetchReviewsAction = createAsyncThunk(
+  'fetchReviews',
+  async (hotelId:number) => {
+    try{
+      const { data } = await api.get<Review[]>(`${APIRoute.Comments}/${hotelId}`);
+      store.dispatch(loadReviewsAction(data));
+    } catch (error) {
+      errorHandle(error);
+    }
+  },
+);
+
+export const fetchNearOffersAction = createAsyncThunk(
+  'fetchNearOffers',
+  async (hotelId:number) => {
+    try{
+      const { data } = await api.get<Offer[]>(`${APIRoute.Offers}/${hotelId}${APIRoute.NearOffers}`);
+      store.dispatch(loadNearOffersAction(data));
     } catch (error) {
       errorHandle(error);
     }
