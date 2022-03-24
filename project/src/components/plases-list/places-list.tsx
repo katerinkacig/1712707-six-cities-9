@@ -1,6 +1,6 @@
-import { OfferOptions} from '../../types/offer';
+import { OfferOptions } from '../../types/offer';
 import PlaceCard from '../place-card/place-card';
-import {useAppSelector} from '../../hooks';
+import { useAppSelector } from '../../hooks';
 
 type PlacesListProps = {
   offerOptions: OfferOptions,

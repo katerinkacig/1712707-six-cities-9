@@ -1,7 +1,8 @@
-import {useState} from 'react';
-import {Link} from 'react-router-dom';
-import {Offer, OfferOptions} from '../../types/offer';
-import {AppRoute} from '../../const';
+import { Link } from 'react-router-dom';
+import { Offer, OfferOptions } from '../../types/offer';
+import { AppRoute } from '../../const';
+import { useAppDispatch } from '../../hooks';
+import { setHoveredOfferAction } from '../../store/action';
 
 type PlaceCardProps = {
   offer: Offer,
@@ -9,9 +10,18 @@ type PlaceCardProps = {
 }
 
 function PlaceCard({offer, options}:PlaceCardProps): JSX.Element {
-  const [activeCard, setActiveCard] = useState(false);
+  const dispatch = useAppDispatch();
+
+  const handleMouseEnter = () => {
+    dispatch(setHoveredOfferAction(offer));
+  };
+
+  const handleMouseLeave = () => {
+    dispatch(setHoveredOfferAction(null));
+  };
+
   return (
-    <article className={`${options.placeCardClass} place-card`} onMouseEnter={() => {setActiveCard(!activeCard);}} onMouseLeave={() => {setActiveCard(!activeCard);}}>
+    <article className={`${options.placeCardClass} place-card`} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
       {offer.isPremium &&
       <div className="place-card__mark">
         <span>Premium</span>

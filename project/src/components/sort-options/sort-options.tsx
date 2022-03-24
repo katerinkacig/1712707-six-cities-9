@@ -17,8 +17,8 @@ function SortOptions ():JSX.Element {
     sort(value);
   };
 
-  const createOption = (value:string) => (
-    <Option isActive={activeOption === value} value={value} handleOptionClick={() => {handleOptionClick(value);}}/>
+  const createOption = (value:string, index:number) => (
+    <Option key={index} isActive={activeOption === value} value={value} handleOptionClick={() => {handleOptionClick(value);}}/>
   );
 
   const sort = (value: string) => {
@@ -51,7 +51,7 @@ function SortOptions ():JSX.Element {
         </svg>
       </span>
       <ul className={`places__options places__options--custom ${isOpen ? 'places__options--opened' : ''}`}>
-        {Object.values(SortOption).map((value) => createOption(value))}
+        {Object.values(SortOption).map((value, index) => createOption(value, index))}
       </ul>
     </form>
   );
