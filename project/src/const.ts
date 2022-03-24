@@ -13,6 +13,8 @@ export enum AuthorizationStatus {
 
 export enum APIRoute {
   Offers = '/hotels',
+  Comments = '/comments',
+  NearOffers = '/nearby',
   Login = '/login',
   Logout = '/logout',
 }
@@ -23,7 +25,9 @@ export enum HTTP_CODE {
   NOT_FOUND = 404,
 }
 
-export const URL_MARKER = 'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg';
+export const URL_MARKER = 'img/pin.svg';
+
+export const URL_ACTIVE_MARKER = 'img/pin-active.svg';
 
 export const cities = [
   { name: 'Paris' },

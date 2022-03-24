@@ -27,7 +27,7 @@ function Main({offerOptions}:MainScreenProps): JSX.Element {
                 <b className="places__found">{activeOffers.length} places to stay in {activeCity.name}</b>
                 <SortOptions/>
                 <div className="cities__places-list places__list tabs__content">
-                  <PlacesList offers={activeOffers} offerOptions={offerOptions}/>
+                  <PlacesList offerOptions={offerOptions}/>
                 </div>
               </section>}
             {activeOffers.length === 0 &&
@@ -38,7 +38,7 @@ function Main({offerOptions}:MainScreenProps): JSX.Element {
                 </div>
               </section>}
             <div className="cities__right-section">
-              {activeOffers.length && <Map city={activeCity} points={activeOffers}/>}
+              {activeOffers.length && <Map points={activeOffers} classMap='cities__map'/>}
             </div>
           </div>
         </div>
