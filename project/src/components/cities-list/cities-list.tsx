@@ -1,15 +1,10 @@
 import {useAppSelector, useAppDispatch} from '../../hooks';
-import {City} from '../../types/offer';
 import {changeCityAction} from '../../store/action';
 
-type CitiesListProps = {
-  cities: City[],
-}
 
-
-function CitiesList({cities}: CitiesListProps): JSX.Element {
+function CitiesList(): JSX.Element {
   const dispatch = useAppDispatch();
-  const active = useAppSelector((state) => state.activeCity);
+  const {activeCity, cities} = useAppSelector((state) => state);
 
   return (
     <div className="tabs">
@@ -17,17 +12,17 @@ function CitiesList({cities}: CitiesListProps): JSX.Element {
         <ul className="locations__list tabs__list">
           {
             cities.map((city,id) => {
-              const keyValue = `${id}-${city.name}`;
+              const keyValue = `${id}-${city}`;
               return(
                 <li className="locations__item" key={keyValue}>
                   <a
-                    className={`locations__item-link tabs__item ${active.name === city.name  ? 'tabs__item--active' : ''}`}
+                    className={`locations__item-link tabs__item ${activeCity === city  ? 'tabs__item--active' : ''}`}
                     href="#todo"
                     onClick={() => {
                       dispatch(changeCityAction(city));
                     }}
                   >
-                    <span>{city.name}</span>
+                    <span>{city}</span>
                   </a>
                 </li>
               );

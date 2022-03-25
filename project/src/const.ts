@@ -25,15 +25,15 @@ export enum HTTP_CODE {
   NOT_FOUND = 404,
 }
 
+export enum SortOption {
+  popular = 'Popular',
+  priceAsc = 'Price: low to high',
+  priceDesc = 'Price: high to low',
+  ratingDesc = 'Top rated first',
+}
+
 export const URL_MARKER = 'img/pin.svg';
 
 export const URL_ACTIVE_MARKER = 'img/pin-active.svg';
 
-export const cities = [
-  { name: 'Paris' },
-  { name: 'Cologne' },
-  { name: 'Brussels' },
-  { name: 'Amsterdam' },
-  { name: 'Hamburg' },
-  { name: 'Dusseldorf' },
-];
+export const CITIES = [ 'Paris' , 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];

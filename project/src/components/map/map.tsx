@@ -8,7 +8,7 @@ import {URL_ACTIVE_MARKER, URL_MARKER} from '../../const';
 
 type MapProps = {
   points: Offer[],
-  activePoint?: Offer,
+  activePoint?: Offer | null,
   classMap?: string,
 }
 

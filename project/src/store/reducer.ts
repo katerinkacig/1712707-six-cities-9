@@ -4,21 +4,23 @@ import {
   loadNearOffersAction,
   loadOffersAction,
   loadReviewsAction,
-  requireAuthorizationAction
+  requireAuthorizationAction, setHoveredOfferAction,
+  sortActiveOffersAction
 } from './action';
-import {AuthorizationStatus, cities} from '../const';
-import { Offer, City } from '../types/offer';
+import {AuthorizationStatus, CITIES} from '../const';
+import { Offer } from '../types/offer';
 import {Review} from '../types/review';
 
-const FIRST_CITY = cities[0];
+const FIRST_CITY = CITIES[0];
 
 type initialState = {
   offers: Offer[],
-  activeCity: City
+  activeCity: string
   activeOffers: Offer[],
-  cities: City[],
+  cities: string[],
   reviews: Review[],
   nearOffers: Offer[],
+  hoveredOffer: null | Offer,
   isDataLoaded: boolean,
   authorizationStatus: AuthorizationStatus,
 }
@@ -27,9 +29,10 @@ const initialState:initialState = {
   offers: [],
   activeCity: FIRST_CITY,
   activeOffers: [],
-  cities,
+  cities: CITIES,
   reviews: [],
   nearOffers: [],
+  hoveredOffer: null,
   isDataLoaded: false,
   authorizationStatus: AuthorizationStatus.Unknown,
 };
@@ -38,23 +41,11 @@ const reducer = createReducer(initialState, (builder) => {
   builder
     .addCase(changeCityAction, (state, action) => {
       state.activeCity = action.payload;
-      state.activeOffers = state.offers.filter((offer) => (offer as Offer).city.name === state.activeCity.name);
+      state.activeOffers = state.offers.filter((offer) => (offer as Offer).city.name === state.activeCity);
     })
     .addCase(loadOffersAction, (state, action) => {
       state.offers = action.payload;
-
-      state.cities.forEach((city) => {
-        const offerByCity = state.offers.find((offer) => (offer as Offer).city.name === city.name);
-        if (offerByCity) {
-          (city as City).location = (offerByCity as Offer).location;
-          if (city.name === state.activeCity.name) {
-            (state.activeCity as City).location = (offerByCity as Offer).location;
-          }
-        }
-      });
-
-      state.activeOffers = state.offers.filter((offer) => (offer as Offer).city.name === state.activeCity.name);
-
+      state.activeOffers = state.offers.filter((offer) => (offer as Offer).city.name === state.activeCity);
       state.isDataLoaded = true;
     })
     .addCase(loadReviewsAction, (state, action) => {
@@ -65,6 +56,12 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(requireAuthorizationAction, (state, action) => {
       state.authorizationStatus = action.payload;
+    })
+    .addCase(sortActiveOffersAction, (state, action) => {
+      state.activeOffers = action.payload;
+    })
+    .addCase(setHoveredOfferAction, (state, action) => {
+      state.hoveredOffer = action.payload;
     });
 });
 
