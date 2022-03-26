@@ -11,6 +11,7 @@ import {store} from '../../store';
 import {fetchNearOffersAction, fetchReviewsAction} from '../../store/api-actions';
 import PlacesNearList from '../../components/plases-near-list/places-near-list';
 import Map from '../../components/map/map';
+import {AuthorizationStatus} from '../../const';
 
 type RoomProps = {
   offerOptions: OfferOptions
@@ -19,6 +20,7 @@ type RoomProps = {
 function Room({offerOptions}:RoomProps): JSX.Element {
   const { offers } = useAppSelector((state) => state);
   const { nearOffers } = useAppSelector((state) => state);
+  const { authorizationStatus } = useAppSelector((state) => state);
   const params = useParams();
 
   function getOfferById(id:number | string | undefined):Offer | undefined {
@@ -53,7 +55,7 @@ function Room({offerOptions}:RoomProps): JSX.Element {
                 if (index < 6) {
                   return (
                     <div key={keyValue} className="property__image-wrapper">
-                      <img className="property__image" src={image} alt="Photo studio"/>
+                      <img className="property__image" src={image} alt={offer.title}/>
                     </div>
                   );
                 }
@@ -136,7 +138,8 @@ function Room({offerOptions}:RoomProps): JSX.Element {
               <section className="property__reviews reviews">
                 <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
                 <ReviewsList/>
-                <ReviewsForm/>
+                {(authorizationStatus === AuthorizationStatus.Auth) && <ReviewsForm offerId={offer && offer.id}/>}
+
               </section>
             </div>
           </div>

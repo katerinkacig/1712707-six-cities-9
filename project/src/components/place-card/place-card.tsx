@@ -28,7 +28,7 @@ function PlaceCard({offer, options}:PlaceCardProps): JSX.Element {
       </div>}
       <div className={`${options.placeCardImgWrapClass} place-card__image-wrapper`}>
         <Link to={`${AppRoute.Offer}/${offer.id}`}>
-          <img className="place-card__image" src={offer.previewImage} width={options.imgSize.width} height={options.imgSize.height} alt="Place image"/>
+          <img className="place-card__image" src={offer.previewImage} width={options.imgSize.width} height={options.imgSize.height} alt={offer.title}/>
         </Link>
       </div>
       <div className={`${options.placeCardInfoClass} place-card__info`}>

@@ -16,6 +16,7 @@ import {UserData} from '../types/user-data';
 import {dropToken, saveToken} from '../services/token';
 import {errorHandle} from '../services/error-handle';
 import {Review} from '../types/review';
+import {CommentData} from '../types/comment-data';
 
 export const fetchOfferAction = createAsyncThunk(
   'fetchOffers',
@@ -36,6 +37,18 @@ export const fetchReviewsAction = createAsyncThunk(
       const { data } = await api.get<Review[]>(`${APIRoute.Comments}/${hotelId}`);
       store.dispatch(loadReviewsAction(data));
     } catch (error) {
+      errorHandle(error);
+    }
+  },
+);
+
+export const addReviewAction = createAsyncThunk(
+  'addReview',
+  async ({ hotelId, comment }:CommentData) => {
+    try{
+      const {data} = await api.post<Review[]>(`${APIRoute.Comments}/${hotelId}`, comment);
+      store.dispatch(loadReviewsAction(data));
+    } catch (error){
       errorHandle(error);
     }
   },
