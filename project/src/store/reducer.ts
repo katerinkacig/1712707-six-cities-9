@@ -13,7 +13,7 @@ import {Review} from '../types/review';
 
 const FIRST_CITY = CITIES[0];
 
-type initialState = {
+type InitialState = {
   offers: Offer[],
   activeCity: string
   activeOffers: Offer[],
@@ -25,7 +25,7 @@ type initialState = {
   authorizationStatus: AuthorizationStatus,
 }
 
-const initialState:initialState = {
+const initialState:InitialState = {
   offers: [],
   activeCity: FIRST_CITY,
   activeOffers: [],
