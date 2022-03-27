@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { Offer, OfferOptions } from '../../types/offer';
 import { AppRoute } from '../../const';
 import { useAppDispatch } from '../../hooks';
-import { setHoveredOfferAction } from '../../store/action';
+import { setHoveredOfferAction } from '../../store/offer-process/offer-process';
 
 type PlaceCardProps = {
   offer: Offer,

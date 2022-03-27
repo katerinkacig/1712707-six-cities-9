@@ -11,7 +11,7 @@ type MainScreenProps = {
 }
 
 function Main({offerOptions}:MainScreenProps): JSX.Element {
-  const { activeOffers, activeCity, hoveredOffer } = useAppSelector((state) => state);
+  const { activeOffers, activeCity, hoveredOffer } = useAppSelector(({OFFERS}) => OFFERS);
 
   return (
     <div className="page page--gray page--main">

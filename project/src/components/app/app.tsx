@@ -44,7 +44,8 @@ const Settings = {
 };
 
 function App(): JSX.Element {
-  const {isDataLoaded, authorizationStatus} = useAppSelector((state) => state);
+  const {authorizationStatus} = useAppSelector(({USER}) => USER);
+  const {isDataLoaded} = useAppSelector(({OFFERS}) => OFFERS);
 
   if (isCheckedAuth(authorizationStatus) || !isDataLoaded) {
     return (

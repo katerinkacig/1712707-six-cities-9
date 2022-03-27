@@ -37,6 +37,13 @@ export enum Comment {
   maxLength = 300,
 }
 
+export enum NameSpace {
+  user = 'USER',
+  offer = 'OFFERS',
+  nearOffer = 'NEAR_OFFERS',
+  review = 'REVIEW',
+}
+
 export const URL_MARKER = 'img/pin.svg';
 
 export const URL_ACTIVE_MARKER = 'img/pin-active.svg';

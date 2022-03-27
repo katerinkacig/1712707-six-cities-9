@@ -7,7 +7,7 @@ type PlacesListProps = {
 }
 
 function PlacesList({offerOptions}:PlacesListProps): JSX.Element {
-  const { activeOffers } = useAppSelector((state) => state);
+  const { activeOffers } = useAppSelector(({OFFERS}) => OFFERS);
   return (
     <div className="cities__places-list places__list tabs__content">
       {activeOffers.map((offer) => <PlaceCard key={offer.id} offer={offer} options={offerOptions}/>)}

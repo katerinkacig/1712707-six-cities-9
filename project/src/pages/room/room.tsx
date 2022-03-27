@@ -18,9 +18,10 @@ type RoomProps = {
 }
 
 function Room({offerOptions}:RoomProps): JSX.Element {
-  const { offers } = useAppSelector((state) => state);
-  const { nearOffers } = useAppSelector((state) => state);
-  const { authorizationStatus } = useAppSelector((state) => state);
+  const { offers } = useAppSelector(({OFFERS}) => OFFERS);
+  const { nearOffers } = useAppSelector(({NEAR_OFFERS}) => NEAR_OFFERS);
+  const { authorizationStatus } = useAppSelector(({USER}) => USER);
+  const { reviews } = useAppSelector(({REVIEW}) => REVIEW);
   const params = useParams();
 
   function getOfferById(id:number | string | undefined):Offer | undefined {
@@ -38,8 +39,6 @@ function Room({offerOptions}:RoomProps): JSX.Element {
       store.dispatch(fetchNearOffersAction((offer as Offer).id));
     }
   }, [offer]);
-
-  const { reviews } = useAppSelector((state) => state);
 
   if (!offer) {return <NonFound/>;}
 
@@ -139,7 +138,6 @@ function Room({offerOptions}:RoomProps): JSX.Element {
                 <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
                 <ReviewsList/>
                 {(authorizationStatus === AuthorizationStatus.Auth) && <ReviewsForm offerId={offer && offer.id}/>}
-
               </section>
             </div>
           </div>
