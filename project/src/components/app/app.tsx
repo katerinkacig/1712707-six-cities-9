@@ -15,34 +15,6 @@ import NonFound from '../../pages/not-found/not-found';
 import HistoryRouter from '../history-route/history-route';
 import browserHistory from '../../browser-history';
 
-const Settings = {
-  OFFER_OPTIONS: {
-    imgSize: {
-      width: '260',
-      height: '200',
-    },
-    placeCardImgWrapClass: 'cities__image-wrapper',
-    placeCardClass: 'cities__place-card',
-  },
-  OFFER_FAVOURITES_OPTIONS: {
-    imgSize: {
-      width: '150',
-      height: '110',
-    },
-    placeCardImgWrapClass: 'favorites__image-wrapper',
-    placeCardClass: 'favorites__card',
-    placeCardInfoClass: 'favorites__card-info',
-  },
-  OFFER_NEAR_OPTIONS: {
-    imgSize: {
-      width: '260',
-      height: '200',
-    },
-    placeCardImgWrapClass: 'near-places__image-wrapper',
-    placeCardClass: 'near-places__card',
-  },
-};
-
 function App(): JSX.Element {
   const {authorizationStatus} = useAppSelector(({USER}) => USER);
   const {isDataLoaded} = useAppSelector(({OFFERS}) => OFFERS);
@@ -56,16 +28,16 @@ function App(): JSX.Element {
   return (
     <HistoryRouter history={browserHistory}>
       <Routes>
-        <Route index element={<Main offerOptions={Settings.OFFER_OPTIONS}/>}/>
+        <Route index element={<Main/>}/>
         <Route path={AppRoute.Favorites} element={
           <PrivateRoute authorizationStatus = {authorizationStatus}>
-            <Favorites offers={offers} offerOptions = {Settings.OFFER_FAVOURITES_OPTIONS}/>
+            <Favorites offers={offers}/>
           </PrivateRoute>
         }
         />
         <Route path={AppRoute.Login} element={<Login/>}/>
         <Route path={AppRoute.Offer} element={<Navigate to='/'/>}/>
-        <Route path={`${AppRoute.Offer}/:id`} element={<Room offerOptions={Settings.OFFER_NEAR_OPTIONS}/>} />
+        <Route path={`${AppRoute.Offer}/:id`} element={<Room/>} />
         <Route path='*' element={<NonFound/>}/>
       </Routes>
     </HistoryRouter>

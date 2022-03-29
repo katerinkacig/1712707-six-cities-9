@@ -1,27 +1,25 @@
 import { Link } from 'react-router-dom';
 import { Offer, OfferOptions } from '../../types/offer';
 import { AppRoute } from '../../const';
-import { useAppDispatch } from '../../hooks';
-import { setHoveredOfferAction } from '../../store/offer-process/offer-process';
+import {memo} from 'react';
 
 type PlaceCardProps = {
   offer: Offer,
   options: OfferOptions,
+  onMouseEnterHandler?: (offer: Offer) => void,
+  onMouseLeaveHandler?: () => void,
 }
 
-function PlaceCard({offer, options}:PlaceCardProps): JSX.Element {
-  const dispatch = useAppDispatch();
-
-  const handleMouseEnter = () => {
-    dispatch(setHoveredOfferAction(offer));
-  };
-
-  const handleMouseLeave = () => {
-    dispatch(setHoveredOfferAction(null));
-  };
-
+function PlaceCard({offer, options, onMouseEnterHandler, onMouseLeaveHandler}:PlaceCardProps): JSX.Element {
   return (
-    <article className={`${options.placeCardClass} place-card`} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+    <article
+      className={`${options.placeCardClass} place-card`}
+      onMouseEnter={() => {
+        if (onMouseEnterHandler) {
+          onMouseEnterHandler(offer);
+        } }}
+      onMouseLeave={onMouseLeaveHandler}
+    >
       {offer.isPremium &&
       <div className="place-card__mark">
         <span>Premium</span>
@@ -59,4 +57,4 @@ function PlaceCard({offer, options}:PlaceCardProps): JSX.Element {
   );
 }
 
-export default PlaceCard;
+export default memo(PlaceCard);

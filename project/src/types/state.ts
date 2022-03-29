@@ -1,7 +1,7 @@
 import {store} from '../store/index.js';
 import {AuthorizationStatus} from '../const';
-import {Offer} from "./offer";
-import {Review} from "./review";
+import {Offer} from './offer';
+import {Review} from './review';
 
 export type UserProcess = {
   authorizationStatus: AuthorizationStatus

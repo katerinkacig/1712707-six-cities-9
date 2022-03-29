@@ -17,7 +17,7 @@ function CitiesList(): JSX.Element {
                 <li className="locations__item" key={keyValue}>
                   <a
                     className={`locations__item-link tabs__item ${activeCity === city  ? 'tabs__item--active' : ''}`}
-                    href="#todo"
+                    href="# "
                     onClick={() => {
                       dispatch(changeCityAction(city));
                     }}

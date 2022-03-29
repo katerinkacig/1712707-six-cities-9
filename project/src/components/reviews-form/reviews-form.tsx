@@ -1,4 +1,4 @@
-import {FormEvent, useEffect, useState} from 'react';
+import {ChangeEvent, FormEvent, useEffect, useState} from 'react';
 import RatingStar from '../rating-star/rating-star';
 import { useAppDispatch } from '../../hooks';
 import { addReviewAction } from '../../store/api-actions';
@@ -16,12 +16,12 @@ function ReviewsForm({ offerId }:ReviewsFormProps): JSX.Element {
     rating: 0,
   });
 
-  const handleFieldChange = (evt: any) => {
-    let { value } = evt.target;
-    if (evt.target.name === 'rating') {
-      value = +value;
-    }
-    setFormData({...formData, [evt.target.name]: value});
+  const handleFieldChange = (evt: ChangeEvent<HTMLTextAreaElement|HTMLInputElement>) => {
+    const { value } = evt.target;
+    setFormData({
+      ...formData,
+      [evt.target.name]: (evt.target.name === 'rating' ? +value : value),
+    });
   };
 
   useEffect(() => {
