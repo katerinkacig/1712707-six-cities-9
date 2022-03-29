@@ -8,7 +8,6 @@ import {isCheckedAuth} from '../../utils';
 import {AppRoute} from '../../const';
 import PrivateRoute from '../private-route/private-route';
 import Favorites from '../../pages/favorites/favorites';
-import {offers} from '../../mocks/offers';
 import Login from '../../pages/login/login';
 import Room from '../../pages/room/room';
 import NonFound from '../../pages/not-found/not-found';
@@ -31,7 +30,7 @@ function App(): JSX.Element {
         <Route index element={<Main/>}/>
         <Route path={AppRoute.Favorites} element={
           <PrivateRoute authorizationStatus = {authorizationStatus}>
-            <Favorites offers={offers}/>
+            <Favorites/>
           </PrivateRoute>
         }
         />

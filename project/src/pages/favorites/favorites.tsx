@@ -1,14 +1,8 @@
 import Header from '../../components/header/header';
 import Footer from '../../components/footer/footer';
 import PlacesFavoritesList from '../../components/plases-favorites-list/places-favorites-list';
-import {Offer} from '../../types/offer';
-import {offerOptions} from '../../const';
 
-type FavoritesProps = {
-  offers: Offer[],
-}
-
-function Favorites({offers}:FavoritesProps): JSX.Element {
+function Favorites(): JSX.Element {
   return (
     <div className="page">
       <Header/>
@@ -26,7 +20,7 @@ function Favorites({offers}:FavoritesProps): JSX.Element {
                   </div>
                 </div>
                 <div className="favorites__places">
-                  <PlacesFavoritesList offers={offers} offerOptions={offerOptions.OFFER_FAVOURITES_OPTIONS} />
+                  <PlacesFavoritesList/>
                 </div>
               </li>
             </ul>

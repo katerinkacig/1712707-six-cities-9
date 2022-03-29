@@ -8,6 +8,7 @@ import {redirectToRoute} from './action';
 import {requireAuthorizationAction} from './user-process/user-process';
 import {loadOffersAction} from './offer-process/offer-process';
 import {loadNearOffersAction} from './near-offers-process/near-offers-process';
+import {loadFavoriteOffersAction, changeFavoriteOffersAction} from './favorite-offers-process/favorite-offers-process';
 import {loadReviewsAction} from './reviews-process/reviews-process';
 import {AuthData} from '../types/auth-data';
 import {UserData} from '../types/user-data';
@@ -15,6 +16,7 @@ import {dropToken, saveToken} from '../services/token';
 import {errorHandle} from '../services/error-handle';
 import {Review} from '../types/review';
 import {CommentData} from '../types/comment-data';
+import {FavoriteOfferData} from '../types/favorite-offer-data';
 
 export const fetchOfferAction = createAsyncThunk(
   'fetchOffers',
@@ -59,6 +61,30 @@ export const fetchNearOffersAction = createAsyncThunk(
       const { data } = await api.get<Offer[]>(`${APIRoute.Offers}/${hotelId}${APIRoute.NearOffers}`);
       store.dispatch(loadNearOffersAction(data));
     } catch (error) {
+      errorHandle(error);
+    }
+  },
+);
+
+export const fetchFavoriteOffersAction = createAsyncThunk(
+  'fetchFavoriteOffers',
+  async () => {
+    try{
+      const { data } = await api.get<Offer[]>(APIRoute.FavoriteOffers);
+      store.dispatch(loadFavoriteOffersAction(data));
+    } catch (error) {
+      errorHandle(error);
+    }
+  },
+);
+
+export const changeFavoriteOfferAction = createAsyncThunk(
+  'toggleFavoriteOffer',
+  async ({ hotelId, status }:FavoriteOfferData) => {
+    try{
+      const {data} = await api.post<Offer>(`${APIRoute.FavoriteOffers}/${hotelId}/${status}`);
+      store.dispatch(changeFavoriteOffersAction(data));
+    } catch (error){
       errorHandle(error);
     }
   },

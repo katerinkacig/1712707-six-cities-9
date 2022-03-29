@@ -15,6 +15,7 @@ export enum APIRoute {
   Offers = '/hotels',
   Comments = '/comments',
   NearOffers = '/nearby',
+  FavoriteOffers = '/favorite',
   Login = '/login',
   Logout = '/logout',
 }
@@ -41,6 +42,7 @@ export enum NameSpace {
   user = 'USER',
   offer = 'OFFERS',
   nearOffer = 'NEAR_OFFERS',
+  favoriteOffer = 'FAVORITE_OFFERS',
   review = 'REVIEW',
 }
 
@@ -76,5 +78,22 @@ export const offerOptions = {
     },
     placeCardImgWrapClass: 'near-places__image-wrapper',
     placeCardClass: 'near-places__card',
+  },
+};
+
+export const bookmarkButtonOptions = {
+  PLACE_CARD_OPTIONS: {
+    classButton: 'place-card',
+    btnSize: {
+      width: '18',
+      height: '19',
+    },
+  },
+  ROOM_OPTIONS: {
+    classButton: 'property',
+    btnSize: {
+      width: '31',
+      height: '33',
+    },
   },
 };
