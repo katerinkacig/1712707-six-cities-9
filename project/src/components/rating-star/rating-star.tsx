@@ -1,7 +1,9 @@
+import {ChangeEvent} from 'react';
+
 type RatingStarProps = {
   title: string
   index: number,
-  onChangeHandler: any,
+  onChangeHandler: (evt: ChangeEvent<HTMLInputElement>) => void,
   checked: boolean
 }
 

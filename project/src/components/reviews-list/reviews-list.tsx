@@ -3,7 +3,7 @@ import {useAppSelector} from '../../hooks';
 import ReviewItem from '../review-item/review-item';
 
 function ReviewsList():JSX.Element{
-  const { reviews } = useAppSelector((state) => state);
+  const { reviews } = useAppSelector(({REVIEW}) => REVIEW);
   return (
     <ul className="reviews__list">
       {reviews.map((review, id) => {

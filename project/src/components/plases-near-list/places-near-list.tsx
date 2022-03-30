@@ -8,7 +8,7 @@ type PlacesNearListProps = {
 }
 
 function PlacesNearList({offerOptions}:PlacesNearListProps): JSX.Element {
-  const { nearOffers } = useAppSelector((state) => state);
+  const { nearOffers } = useAppSelector(({NEAR_OFFERS}) => NEAR_OFFERS);
   return (
     <div className="near-places__list places__list">
       {nearOffers.map((offer) => <PlaceCard key={offer.id} offer={offer} options={offerOptions}/>)}

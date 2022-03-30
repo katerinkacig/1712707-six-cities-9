@@ -5,7 +5,8 @@ import Header from '../../components/header/header';
 import ReviewsForm from '../../components/reviews-form/reviews-form';
 import ReviewsList from '../../components/reviews-list/reviews-list';
 import NonFound from '../not-found/not-found';
-import {Offer, OfferOptions} from '../../types/offer';
+import {Offer} from '../../types/offer';
+import {offerOptions} from '../../const';
 import { useAppSelector } from '../../hooks';
 import {store} from '../../store';
 import {fetchNearOffersAction, fetchReviewsAction} from '../../store/api-actions';
@@ -13,14 +14,11 @@ import PlacesNearList from '../../components/plases-near-list/places-near-list';
 import Map from '../../components/map/map';
 import {AuthorizationStatus} from '../../const';
 
-type RoomProps = {
-  offerOptions: OfferOptions
-}
-
-function Room({offerOptions}:RoomProps): JSX.Element {
-  const { offers } = useAppSelector((state) => state);
-  const { nearOffers } = useAppSelector((state) => state);
-  const { authorizationStatus } = useAppSelector((state) => state);
+function Room(): JSX.Element {
+  const { offers } = useAppSelector(({OFFERS}) => OFFERS);
+  const { nearOffers } = useAppSelector(({NEAR_OFFERS}) => NEAR_OFFERS);
+  const { authorizationStatus } = useAppSelector(({USER}) => USER);
+  const { reviews } = useAppSelector(({REVIEW}) => REVIEW);
   const params = useParams();
 
   function getOfferById(id:number | string | undefined):Offer | undefined {
@@ -39,8 +37,6 @@ function Room({offerOptions}:RoomProps): JSX.Element {
     }
   }, [offer]);
 
-  const { reviews } = useAppSelector((state) => state);
-
   if (!offer) {return <NonFound/>;}
 
   return (
@@ -50,15 +46,13 @@ function Room({offerOptions}:RoomProps): JSX.Element {
         <section className="property">
           <div className="property__gallery-container container">
             <div className="property__gallery">
-              {offer && offer.images.map((image, index) => {
+              {offer && offer.images.slice(0, 6).map((image, index) => {
                 const keyValue = `${index}-${image}`;
-                if (index < 6) {
-                  return (
-                    <div key={keyValue} className="property__image-wrapper">
-                      <img className="property__image" src={image} alt={offer.title}/>
-                    </div>
-                  );
-                }
+                return (
+                  <div key={keyValue} className="property__image-wrapper">
+                    <img className="property__image" src={image} alt={offer.title}/>
+                  </div>
+                );
               })}
             </div>
           </div>
@@ -139,7 +133,6 @@ function Room({offerOptions}:RoomProps): JSX.Element {
                 <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
                 <ReviewsList/>
                 {(authorizationStatus === AuthorizationStatus.Auth) && <ReviewsForm offerId={offer && offer.id}/>}
-
               </section>
             </div>
           </div>
@@ -148,7 +141,7 @@ function Room({offerOptions}:RoomProps): JSX.Element {
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            <PlacesNearList offerOptions={offerOptions}/>
+            <PlacesNearList offerOptions={offerOptions.OFFER_NEAR_OPTIONS}/>
           </section>
         </div>
       </main>

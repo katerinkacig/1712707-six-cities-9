@@ -1,13 +1,14 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import Option from '../option/option';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {Offer} from '../../types/offer';
-import {sortActiveOffersAction} from '../../store/action';
+import {sortActiveOffersAction} from '../../store/offer-process/offer-process';
 import {SortOption} from '../../const';
 
 function SortOptions ():JSX.Element {
   const dispatch = useAppDispatch();
-  const { activeOffers } = useAppSelector((state) => state);
+  const { activeOffers } = useAppSelector(({OFFERS}) => OFFERS);
+  const { activeCity } = useAppSelector(({OFFERS}) => OFFERS);
   const [isOpen, setIsOpen] = useState(false);
   const [activeOption, setActiveOption] = useState('Popular');
 
@@ -40,6 +41,10 @@ function SortOptions ():JSX.Element {
 
     dispatch(sortActiveOffersAction(offers));
   };
+
+  useEffect(() => {
+    setActiveOption('Popular');
+  }, [activeCity]);
 
   return (
     <form className="places__sorting" action="#" method="get">

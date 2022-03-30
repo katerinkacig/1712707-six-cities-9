@@ -1,10 +1,10 @@
 import {useAppSelector, useAppDispatch} from '../../hooks';
-import {changeCityAction} from '../../store/action';
+import {changeCityAction} from '../../store/offer-process/offer-process';
 
 
 function CitiesList(): JSX.Element {
   const dispatch = useAppDispatch();
-  const {activeCity, cities} = useAppSelector((state) => state);
+  const {activeCity, cities} = useAppSelector(({OFFERS}) => OFFERS);
 
   return (
     <div className="tabs">
@@ -17,7 +17,7 @@ function CitiesList(): JSX.Element {
                 <li className="locations__item" key={keyValue}>
                   <a
                     className={`locations__item-link tabs__item ${activeCity === city  ? 'tabs__item--active' : ''}`}
-                    href="#todo"
+                    href="# "
                     onClick={() => {
                       dispatch(changeCityAction(city));
                     }}

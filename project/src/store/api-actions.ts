@@ -4,13 +4,11 @@ import {api} from './index';
 import {store} from '../store';
 import {Offer} from '../types/offer';
 import {APIRoute, AppRoute, AuthorizationStatus} from '../const';
-import {
-  loadNearOffersAction,
-  loadOffersAction,
-  loadReviewsAction,
-  redirectToRoute,
-  requireAuthorizationAction
-} from './action';
+import {redirectToRoute} from './action';
+import {requireAuthorizationAction} from './user-process/user-process';
+import {loadOffersAction} from './offer-process/offer-process';
+import {loadNearOffersAction} from './near-offers-process/near-offers-process';
+import {loadReviewsAction} from './reviews-process/reviews-process';
 import {AuthData} from '../types/auth-data';
 import {UserData} from '../types/user-data';
 import {dropToken, saveToken} from '../services/token';
