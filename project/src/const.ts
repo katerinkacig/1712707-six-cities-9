@@ -52,7 +52,6 @@ export const URL_ACTIVE_MARKER = 'img/pin-active.svg';
 
 export const CITIES = [ 'Paris' , 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
 
-
 export const offerOptions = {
   OFFER_MAIN_OPTIONS: {
     imgSize: {

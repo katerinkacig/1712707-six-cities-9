@@ -10,8 +10,15 @@ export const errorHandle = (error: ErrorType): void => {
 
   const {response} = error;
 
-  if (response) {
-    switch (response.status) {
+  //if (response) {
+  if (response?.status) {
+    if (response?.status === HTTP_CODE.UNAUTHORIZED) {
+      toast.info(response.data.error);
+    } else {
+      toast.error(response.data.error);
+    }
+
+    /*switch (response.status) {
       case HTTP_CODE.BAD_REQUEST:
         toast.info(response.data.error);
         break;
@@ -21,6 +28,6 @@ export const errorHandle = (error: ErrorType): void => {
       case HTTP_CODE.NOT_FOUND:
         toast.info(response.data.error);
         break;
-    }
+    }*/
   }
 };

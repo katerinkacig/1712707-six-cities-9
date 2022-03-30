@@ -10,7 +10,8 @@ type ReviewsFormProps = {
 
 function ReviewsForm({ offerId }:ReviewsFormProps): JSX.Element {
   const dispatch = useAppDispatch();
-  const [disable, setDisable] = useState(true);
+  const [disableSubmit, setDisableSubmit] = useState(true);
+  const [disable, setDisable] = useState(false);
   const [formData, setFormData] = useState({
     comment: '',
     rating: 0,
@@ -26,13 +27,17 @@ function ReviewsForm({ offerId }:ReviewsFormProps): JSX.Element {
 
   useEffect(() => {
     const { comment, rating } = formData;
-    setDisable(!(comment.length >= Comment.minLength && rating > 0));
+    setDisableSubmit(!(comment.length >= Comment.minLength && rating > 0));
   }, [formData]);
 
-  const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    dispatch(addReviewAction({hotelId: offerId, comment: formData}));
-    setFormData({comment: '', rating: 0});
+    setDisable(true);
+    const result = await dispatch(addReviewAction({hotelId: offerId, comment: formData}));
+    setDisable(false);
+    if (result?.payload !== 'error') {
+      setFormData({comment: '', rating: 0});
+    }
   };
 
   return (
@@ -43,7 +48,14 @@ function ReviewsForm({ offerId }:ReviewsFormProps): JSX.Element {
           const keyValue = `${index}-${title}`;
           const realIndex = index + 1;
           return (
-            <RatingStar key={keyValue} title={title} index={realIndex} checked={formData.rating === realIndex} onChangeHandler={handleFieldChange}/>
+            <RatingStar
+              key={keyValue}
+              title={title}
+              index={realIndex}
+              checked={formData.rating === realIndex}
+              disabled={disable}
+              onChangeHandler={handleFieldChange}
+            />
           );
         }).reverse()}
       </div>
@@ -55,6 +67,7 @@ function ReviewsForm({ offerId }:ReviewsFormProps): JSX.Element {
         value={formData.comment}
         minLength={Comment.minLength}
         maxLength={Comment.maxLength}
+        disabled={disable}
         placeholder="Tell how was your stay, what you like and what can be improved"
       >
       </textarea>
@@ -63,7 +76,7 @@ function ReviewsForm({ offerId }:ReviewsFormProps): JSX.Element {
           To submit review please make sure to set <span className="reviews__star">rating</span> and describe
           your stay with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" type="submit" disabled={disable}>Submit</button>
+        <button className="reviews__submit form__submit button" type="submit" disabled={disableSubmit || disable}>Submit</button>
       </div>
     </form>
   );

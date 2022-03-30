@@ -45,12 +45,17 @@ export const fetchReviewsAction = createAsyncThunk(
 export const addReviewAction = createAsyncThunk(
   'addReview',
   async ({ hotelId, comment }:CommentData) => {
+    let result;
     try{
       const {data} = await api.post<Review[]>(`${APIRoute.Comments}/${hotelId}`, comment);
       store.dispatch(loadReviewsAction(data));
+      result = 'success';
     } catch (error){
+      result = 'error';
       errorHandle(error);
     }
+
+    return result;
   },
 );
 
@@ -104,7 +109,7 @@ export const checkAuthAction = createAsyncThunk(
 );
 
 export const loginAction = createAsyncThunk(
-  'user/login',
+  'login',
   async ({login: email, password}: AuthData) => {
     try{
       const {data: {token}} = await api.post<UserData>(APIRoute.Login, {email, password});
@@ -119,7 +124,7 @@ export const loginAction = createAsyncThunk(
 );
 
 export const logoutAction = createAsyncThunk(
-  'user/logout',
+  'logout',
   async () => {
     try{
       await api.delete(APIRoute.Logout);

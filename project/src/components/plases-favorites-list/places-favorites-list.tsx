@@ -1,13 +1,15 @@
 import PlaceCard from '../place-card/place-card';
 import {offerOptions} from '../../const';
-import {useAppSelector} from '../../hooks';
+import {Offer} from '../../types/offer';
 
+type PlacesFavoritesListProps = {
+  favoriteOffers: Offer[],
+}
 
-function PlacesFavoritesList(): JSX.Element {
-  const { favoriteOffers } = useAppSelector(({FAVORITE_OFFERS}) => FAVORITE_OFFERS);
+function PlacesFavoritesList({favoriteOffers}:PlacesFavoritesListProps): JSX.Element {
   return (
     <>
-      {favoriteOffers.filter((offer) => offer.isFavorite).map((offer) => <PlaceCard key={offer.id} offer={offer} options={offerOptions.OFFER_FAVOURITES_OPTIONS}/>)}
+      {favoriteOffers.map((offer) => <PlaceCard key={offer.id} offer={offer} options={offerOptions.OFFER_FAVOURITES_OPTIONS}/>)}
     </>
   );
 }

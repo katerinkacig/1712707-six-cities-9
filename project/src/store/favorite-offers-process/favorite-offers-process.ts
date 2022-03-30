@@ -18,7 +18,8 @@ export const favoriteOffersProcess = createSlice({
       if(offer.isFavorite) {
         state.favoriteOffers = [...state.favoriteOffers, offer];
       } else{
-        state.favoriteOffers.splice(state.favoriteOffers.indexOf(offer), 1);
+        const indexOffer = state.favoriteOffers.findIndex((favoriteOffer) => favoriteOffer.id === offer.id);
+        state.favoriteOffers.splice(indexOffer, 1);
       }
     },
   },
