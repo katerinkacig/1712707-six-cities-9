@@ -35,7 +35,7 @@ function Room(): JSX.Element {
       dispatch(fetchReviewsAction((offer).id));
       dispatch(fetchNearOffersAction((offer).id));
     }
-  }, [offer]);
+  }, [offer, dispatch]);
 
   if (!offer) {return <NonFound/>;}
 

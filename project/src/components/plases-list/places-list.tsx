@@ -13,10 +13,10 @@ function PlacesList({offerOptions}:PlacesListProps): JSX.Element {
   const dispatch = useAppDispatch();
   const handleMouseEnter = useCallback((offer:Offer) => {
     dispatch(setHoveredOfferAction(offer));
-  }, []);
+  }, [dispatch]);
   const handleMouseLeave = useCallback(() => {
     dispatch(setHoveredOfferAction(null));
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className="cities__places-list places__list tabs__content">

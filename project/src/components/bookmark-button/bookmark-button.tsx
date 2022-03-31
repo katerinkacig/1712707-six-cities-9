@@ -20,7 +20,7 @@ function BookmarkButton({offer, options}:BookmarkButtonProps): JSX.Element {
 
   useEffect(() => {
     setIsActive(favoriteOffers.some((favoriteOffer) => favoriteOffer.id === offer.id));
-  }, [favoriteOffers]);
+  }, [favoriteOffers, offer.id]);
   const handleButtonClick = () =>{
     if(authorizationStatus === AuthorizationStatus.NoAuth) {navigate(AppRoute.Login, { replace: true });}
     const newStatus = !isActive;

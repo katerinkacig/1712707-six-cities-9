@@ -27,6 +27,8 @@ function Favorites(): JSX.Element {
                 </div>
               </li>
             );
+          } else{
+            return null;
           }
         })}
       </ul>
