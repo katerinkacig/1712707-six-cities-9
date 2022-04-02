@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {useNavigate} from 'react-router-dom';
 import {changeFavoriteOfferAction} from '../../store/api-actions';
 import {useAppDispatch, useAppSelector} from '../../hooks';
@@ -13,22 +13,17 @@ type BookmarkButtonProps = {
 
 function BookmarkButton({offer, options}:BookmarkButtonProps): JSX.Element {
   const dispatch = useAppDispatch();
-  const { favoriteOffers } = useAppSelector(({FAVORITE_OFFERS}) => FAVORITE_OFFERS);
   const {authorizationStatus} = useAppSelector(({USER}) => USER);
-  const [isActive, setIsActive] = useState(offer.isFavorite);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    setIsActive(favoriteOffers.some((favoriteOffer) => favoriteOffer.id === offer.id));
-  }, [favoriteOffers, offer.id]);
   const handleButtonClick = () =>{
     if(authorizationStatus === AuthorizationStatus.NoAuth) {navigate(AppRoute.Login, { replace: true });}
-    const newStatus = !isActive;
+    const newStatus = !offer.isFavorite;
     dispatch(changeFavoriteOfferAction({hotelId: offer.id, status: +newStatus }));
   };
   return (
     <button
-      className={`${options.classButton}__bookmark-button ${(isActive) ? `${options.classButton}__bookmark-button--active` : ''} button`}
+      className={`${options.classButton}__bookmark-button ${offer.isFavorite ? `${options.classButton}__bookmark-button--active` : ''} button`}
       type="button"
       onClick={handleButtonClick}
     >
