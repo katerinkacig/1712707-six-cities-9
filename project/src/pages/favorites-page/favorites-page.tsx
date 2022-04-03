@@ -1,15 +1,17 @@
+import {useEffect} from 'react';
 import Header from '../../components/header/header';
 import Footer from '../../components/footer/footer';
-import {useAppSelector} from '../../hooks';
+import {useAppDispatch, useAppSelector} from '../../hooks';
 import Favorites from '../../components/favorites/favorites';
 import FavoritesEmpty from '../../components/favorites-empty/favorites-empty';
 import {fetchFavoriteOffersAction} from '../../store/api-actions';
-import {store} from '../../store';
-
-store.dispatch(fetchFavoriteOffersAction());
 
 function FavoritesPage(): JSX.Element {
   const { favoriteOffers } = useAppSelector(({FAVORITE_OFFERS}) => FAVORITE_OFFERS);
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(fetchFavoriteOffersAction());
+  }, [dispatch]);
 
   return (
     <div className="page">
