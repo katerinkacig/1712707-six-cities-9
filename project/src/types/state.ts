@@ -20,6 +20,10 @@ export type NearOffersProcess = {
   nearOffers: Offer[],
 };
 
+export type FavoriteOffersProcess = {
+  favoriteOffers: Offer[],
+};
+
 export type ReviewsProcess = {
   reviews: Review[],
 };

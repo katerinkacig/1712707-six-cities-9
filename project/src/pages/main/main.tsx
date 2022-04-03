@@ -1,13 +1,11 @@
-import PlacesList from '../../components/plases-list/places-list';
 import CitiesList from '../../components/cities-list/cities-list';
 import Header from '../../components/header/header';
-import Map from '../../components/map/map';
-import { offerOptions } from '../../const';
 import { useAppSelector } from '../../hooks';
-import SortOptions from '../../components/sort-options/sort-options';
+import Cities from '../../components/cities/cities';
+import CitiesEmpty from '../../components/cities-empty/cities-empty';
 
 function Main(): JSX.Element {
-  const { activeOffers, activeCity, hoveredOffer } = useAppSelector(({OFFERS}) => OFFERS);
+  const { activeOffers } = useAppSelector(({OFFERS}) => OFFERS);
 
   return (
     <div className="page page--gray page--main">
@@ -15,27 +13,7 @@ function Main(): JSX.Element {
       <main className={`page__main page__main--index ${!activeOffers.length && 'page__main--index-empty'}`}>
         <h1 className="visually-hidden">Cities</h1>
         <CitiesList/>
-        <div className="cities">
-          <div className={`cities__places-container container ${!activeOffers.length && 'cities__places-container--empty'}`}>
-            {activeOffers.length !== 0 &&
-              <section className="cities__places places">
-                <h2 className="visually-hidden">Places</h2>
-                <b className="places__found">{activeOffers.length} places to stay in {activeCity}</b>
-                <SortOptions/>
-                <PlacesList offerOptions={offerOptions.OFFER_MAIN_OPTIONS}/>
-              </section>}
-            {activeOffers.length === 0 &&
-              <section className="cities__no-places">
-                <div className="cities__status-wrapper tabs__content">
-                  <b className="cities__status">No places to stay available</b>
-                  <p className="cities__status-description">We could not find any property available at the moment in Dusseldorf</p>
-                </div>
-              </section>}
-            <div className="cities__right-section">
-              {activeOffers.length !== 0 && <Map points={activeOffers} activePoint={hoveredOffer} classMap='cities__map'/>}
-            </div>
-          </div>
-        </div>
+        {activeOffers.length > 0 ? <Cities/> : <CitiesEmpty/>}
       </main>
     </div>
   );

@@ -6,8 +6,10 @@ import {Offer} from '../types/offer';
 import {APIRoute, AppRoute, AuthorizationStatus} from '../const';
 import {redirectToRoute} from './action';
 import {requireAuthorizationAction} from './user-process/user-process';
-import {loadOffersAction} from './offer-process/offer-process';
-import {loadNearOffersAction} from './near-offers-process/near-offers-process';
+import {loadOffersAction, changeOfferAction} from './offer-process/offer-process';
+import {changeFavoriteOffersAction} from './favorite-offers-process/favorite-offers-process';
+import {loadNearOffersAction, ChangeNearOffersAction} from './near-offers-process/near-offers-process';
+import {loadFavoriteOffersAction} from './favorite-offers-process/favorite-offers-process';
 import {loadReviewsAction} from './reviews-process/reviews-process';
 import {AuthData} from '../types/auth-data';
 import {UserData} from '../types/user-data';
@@ -15,6 +17,7 @@ import {dropToken, saveToken} from '../services/token';
 import {errorHandle} from '../services/error-handle';
 import {Review} from '../types/review';
 import {CommentData} from '../types/comment-data';
+import {FavoriteOfferData} from '../types/favorite-offer-data';
 
 export const fetchOfferAction = createAsyncThunk(
   'fetchOffers',
@@ -43,12 +46,17 @@ export const fetchReviewsAction = createAsyncThunk(
 export const addReviewAction = createAsyncThunk(
   'addReview',
   async ({ hotelId, comment }:CommentData) => {
+    let result;
     try{
       const {data} = await api.post<Review[]>(`${APIRoute.Comments}/${hotelId}`, comment);
       store.dispatch(loadReviewsAction(data));
+      result = 'success';
     } catch (error){
+      result = 'error';
       errorHandle(error);
     }
+
+    return result;
   },
 );
 
@@ -59,6 +67,32 @@ export const fetchNearOffersAction = createAsyncThunk(
       const { data } = await api.get<Offer[]>(`${APIRoute.Offers}/${hotelId}${APIRoute.NearOffers}`);
       store.dispatch(loadNearOffersAction(data));
     } catch (error) {
+      errorHandle(error);
+    }
+  },
+);
+
+export const fetchFavoriteOffersAction = createAsyncThunk(
+  'fetchFavoriteOffers',
+  async () => {
+    try{
+      const { data } = await api.get<Offer[]>(APIRoute.FavoriteOffers);
+      store.dispatch(loadFavoriteOffersAction(data));
+    } catch (error) {
+      errorHandle(error);
+    }
+  },
+);
+
+export const changeFavoriteOfferAction = createAsyncThunk(
+  'changeFavoriteOffer',
+  async ({ hotelId, status }:FavoriteOfferData) => {
+    try{
+      const {data} = await api.post<Offer>(`${APIRoute.FavoriteOffers}/${hotelId}/${status}`);
+      store.dispatch(changeOfferAction(data));
+      store.dispatch(ChangeNearOffersAction(data));
+      store.dispatch(changeFavoriteOffersAction(data));
+    } catch (error){
       errorHandle(error);
     }
   },
@@ -78,7 +112,7 @@ export const checkAuthAction = createAsyncThunk(
 );
 
 export const loginAction = createAsyncThunk(
-  'user/login',
+  'login',
   async ({login: email, password}: AuthData) => {
     try{
       const {data: {token}} = await api.post<UserData>(APIRoute.Login, {email, password});
@@ -93,7 +127,7 @@ export const loginAction = createAsyncThunk(
 );
 
 export const logoutAction = createAsyncThunk(
-  'user/logout',
+  'logout',
   async () => {
     try{
       await api.delete(APIRoute.Logout);

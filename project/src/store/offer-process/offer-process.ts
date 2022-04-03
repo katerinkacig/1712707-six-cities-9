@@ -33,7 +33,15 @@ export const offerProcess = createSlice({
     setHoveredOfferAction: (state, action) => {
       state.hoveredOffer = action.payload;
     },
+    changeOfferAction: (state, action) => {
+      const newOffer = action.payload;
+      const offerIndex = state.offers.findIndex((offer) => offer.id === newOffer.id);
+      state.offers.splice(offerIndex, 1, newOffer);
+
+      const activeOfferIndex = state.activeOffers.findIndex((offer) => offer.id === newOffer.id);
+      state.activeOffers.splice(activeOfferIndex, 1, newOffer);
+    },
   },
 });
 
-export const {changeCityAction, loadOffersAction, sortActiveOffersAction, setHoveredOfferAction} = offerProcess.actions;
+export const {changeCityAction, loadOffersAction, sortActiveOffersAction, setHoveredOfferAction, changeOfferAction} = offerProcess.actions;

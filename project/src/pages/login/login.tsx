@@ -1,14 +1,16 @@
 import {FormEvent, useRef} from 'react';
 
 import Header from '../../components/header/header';
-import {useAppDispatch} from '../../hooks';
+import {useAppDispatch, useAppSelector} from '../../hooks';
 import {AuthData} from '../../types/auth-data';
 import {loginAction} from '../../store/api-actions';
+import {AppRoute, AuthorizationStatus} from '../../const';
+import {Navigate} from 'react-router-dom';
 
 function Login(): JSX.Element {
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
-
+  const {authorizationStatus} = useAppSelector(({USER}) => USER);
   const dispatch = useAppDispatch();
 
   const onSubmit = (authData: AuthData) => {
@@ -25,6 +27,8 @@ function Login(): JSX.Element {
       });
     }
   };
+
+  if(authorizationStatus === AuthorizationStatus.Auth) {return <Navigate to={AppRoute.Root}/>;}
 
   return (
     <div className="page page--gray page--login">
@@ -52,6 +56,7 @@ function Login(): JSX.Element {
                   className="login__input form__input"
                   type="password" name="password"
                   placeholder="Password"
+                  pattern="(?=.*[0-9])(?=.*[A-Za-z])[0-9a-zA-Z]{2,}"
                   required
                 />
               </div>

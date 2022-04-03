@@ -1,15 +1,15 @@
-import {Offer, OfferOptions} from '../../types/offer';
 import PlaceCard from '../place-card/place-card';
+import {offerOptions} from '../../const';
+import {Offer} from '../../types/offer';
 
-type PlacesListProps = {
-  offers: Offer[],
-  offerOptions: OfferOptions,
+type PlacesFavoritesListProps = {
+  favoriteOffers: Offer[],
 }
 
-function PlacesFavoritesList({offers, offerOptions}:PlacesListProps): JSX.Element {
+function PlacesFavoritesList({favoriteOffers}:PlacesFavoritesListProps): JSX.Element {
   return (
     <>
-      {offers.filter((offer) => offer.isFavorite).map((offer) => <PlaceCard key={offer.id} offer={offer} options={offerOptions}/>)}
+      {favoriteOffers.map((offer) => <PlaceCard key={offer.id} offer={offer} options={offerOptions.OFFER_FAVOURITES_OPTIONS}/>)}
     </>
   );
 }
