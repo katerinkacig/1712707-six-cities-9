@@ -20,22 +20,20 @@ export enum APIRoute {
   Logout = '/logout',
 }
 
-export enum HTTP_CODE {
-  BAD_REQUEST = 400,
-  UNAUTHORIZED = 401,
-  NOT_FOUND = 404,
+export enum HttpCode {
+  Unauthorized = 401,
 }
 
 export enum SortOption {
-  popular = 'Popular',
-  priceAsc = 'Price: low to high',
-  priceDesc = 'Price: high to low',
-  ratingDesc = 'Top rated first',
+  Popular = 'Popular',
+  PriceAsc = 'Price: low to high',
+  PriceDesc = 'Price: high to low',
+  RatingDesc = 'Top rated first',
 }
 
 export enum Comment {
-  minLength = 50,
-  maxLength = 300,
+  MinLength = 50,
+  MaxLength = 300,
 }
 
 export enum NameSpace {
