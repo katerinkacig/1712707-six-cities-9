@@ -10,7 +10,7 @@ function SortOptions ():JSX.Element {
   const { activeOffers } = useAppSelector(({OFFERS}) => OFFERS);
   const { activeCity } = useAppSelector(({OFFERS}) => OFFERS);
   const [isOpen, setIsOpen] = useState(false);
-  const [activeOption, setActiveOption] = useState('Popular');
+  const [activeOption, setActiveOption] = useState(SortOption.Popular as string);
 
   const handleOptionClick = (value:string) => {
     setActiveOption(value);
@@ -26,13 +26,13 @@ function SortOptions ():JSX.Element {
     const offers = [...activeOffers];
 
     switch (value) {
-      case SortOption.priceAsc:
+      case SortOption.PriceAsc:
         offers.sort((a:Offer, b:Offer) => (a.price > b.price ? 1 : -1));
         break;
-      case SortOption.priceDesc:
+      case SortOption.PriceDesc:
         offers.sort((a:Offer, b:Offer) => (a.price > b.price ? -1 : 1));
         break;
-      case SortOption.ratingDesc:
+      case SortOption.RatingDesc:
         offers.sort((a:Offer, b:Offer) => (a.rating > b.rating ? -1 : 1));
         break;
       default:
@@ -43,7 +43,7 @@ function SortOptions ():JSX.Element {
   };
 
   useEffect(() => {
-    setActiveOption('Popular');
+    setActiveOption(SortOption.Popular);
   }, [activeCity]);
 
   return (

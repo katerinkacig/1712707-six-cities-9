@@ -27,7 +27,7 @@ function ReviewsForm({ offerId }:ReviewsFormProps): JSX.Element {
 
   useEffect(() => {
     const { comment, rating } = formData;
-    setDisableSubmit(!(comment.length >= Comment.minLength && rating > 0));
+    setDisableSubmit(!(comment.length >= Comment.MinLength && rating > 0));
   }, [formData]);
 
   const handleSubmit = async (evt: FormEvent<HTMLFormElement>) => {
@@ -65,8 +65,8 @@ function ReviewsForm({ offerId }:ReviewsFormProps): JSX.Element {
         name="comment"
         onChange={handleFieldChange}
         value={formData.comment}
-        minLength={Comment.minLength}
-        maxLength={Comment.maxLength}
+        minLength={Comment.MinLength}
+        maxLength={Comment.MaxLength}
         disabled={disable}
         placeholder="Tell how was your stay, what you like and what can be improved"
       >
