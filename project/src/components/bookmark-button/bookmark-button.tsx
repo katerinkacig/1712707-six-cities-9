@@ -5,6 +5,7 @@ import {useAppDispatch, useAppSelector} from '../../hooks';
 import {Offer} from '../../types/offer';
 import {BookmarkButtonOptions} from '../../types/bookmark-button';
 import {AppRoute, AuthorizationStatus} from '../../const';
+import {getAuthorizationStatus} from '../../store/user-process/selectors';
 
 type BookmarkButtonProps = {
   offer: Offer,
@@ -13,7 +14,7 @@ type BookmarkButtonProps = {
 
 function BookmarkButton({offer, options}:BookmarkButtonProps): JSX.Element {
   const dispatch = useAppDispatch();
-  const {authorizationStatus} = useAppSelector(({USER}) => USER);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const navigate = useNavigate();
 
   const handleButtonClick = () =>{

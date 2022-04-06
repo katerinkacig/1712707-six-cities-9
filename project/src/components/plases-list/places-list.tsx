@@ -3,13 +3,14 @@ import PlaceCard from '../place-card/place-card';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {setHoveredOfferAction} from '../../store/offer-process/offer-process';
 import {useCallback} from 'react';
+import {getActiveOffers} from '../../store/offer-process/selectors';
 
 type PlacesListProps = {
   offerOptions: OfferOptions,
 }
 
 function PlacesList({offerOptions}:PlacesListProps): JSX.Element {
-  const {activeOffers} = useAppSelector(({OFFERS}) => OFFERS);
+  const activeOffers = useAppSelector(getActiveOffers);
   const dispatch = useAppDispatch();
   const handleMouseEnter = useCallback((offer:Offer) => {
     dispatch(setHoveredOfferAction(offer));

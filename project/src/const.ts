@@ -37,18 +37,19 @@ export enum Comment {
 }
 
 export enum NameSpace {
-  user = 'USER',
-  offer = 'OFFERS',
-  nearOffer = 'NEAR_OFFERS',
-  favoriteOffer = 'FAVORITE_OFFERS',
-  review = 'REVIEW',
+  Error = 'ERROR',
+  User = 'USER',
+  Offer = 'OFFERS',
+  NearOffer = 'NEAR_OFFERS',
+  FavoriteOffer = 'FAVORITE_OFFERS',
+  Review = 'REVIEW',
 }
 
 export const URL_MARKER = 'img/pin.svg';
 
 export const URL_ACTIVE_MARKER = 'img/pin-active.svg';
 
-export const CITIES = [ 'Paris' , 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
+export const CITIES = [ 'Paris' , 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
 
 export const offerOptions = {
   OFFER_MAIN_OPTIONS: {
@@ -94,3 +95,7 @@ export const bookmarkButtonOptions = {
     },
   },
 };
+
+export const REVIEWS_COUNT = 10;
+
+export const OFFER_GALLERY_IMAGES_COUNT = 6;

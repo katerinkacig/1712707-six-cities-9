@@ -1,9 +1,10 @@
 import {CITIES} from '../../const';
 import PlacesFavoritesList from '../plases-favorites-list/places-favorites-list';
 import {useAppSelector} from '../../hooks';
+import {getFavoriteOffers} from '../../store/favorite-offers-process/selectors';
 
 function Favorites(): JSX.Element {
-  const { favoriteOffers } = useAppSelector(({FAVORITE_OFFERS}) => FAVORITE_OFFERS);
+  const favoriteOffers = useAppSelector(getFavoriteOffers);
 
   return (
     <section className="favorites">

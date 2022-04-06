@@ -12,11 +12,22 @@ import Login from '../../pages/login/login';
 import Room from '../../pages/room/room';
 import NonFound from '../../pages/not-found/not-found';
 import HistoryRouter from '../history-route/history-route';
+import ServerError from '../server-error/server-error';
 import browserHistory from '../../browser-history';
+import {getAuthorizationStatus} from '../../store/user-process/selectors';
+import {getServerErrorStatus} from '../../store/error-process/selectors';
+import {getLoadedDataStatus} from '../../store/offer-process/selectors';
 
 function App(): JSX.Element {
-  const {authorizationStatus} = useAppSelector(({USER}) => USER);
-  const {isDataLoaded} = useAppSelector(({OFFERS}) => OFFERS);
+  const isDataLoaded = useAppSelector(getLoadedDataStatus);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const isServerError = useAppSelector(getServerErrorStatus);
+
+  if(isServerError) {
+    return (
+      <ServerError/>
+    );
+  }
 
   if (isCheckedAuth(authorizationStatus) || !isDataLoaded) {
     return (

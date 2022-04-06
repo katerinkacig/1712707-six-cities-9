@@ -11,13 +11,17 @@ import NonFound from '../not-found/not-found';
 import {Offer} from '../../types/offer';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {fetchNearOffersAction, fetchReviewsAction} from '../../store/api-actions';
-import {AuthorizationStatus, bookmarkButtonOptions} from '../../const';
+import {AuthorizationStatus, bookmarkButtonOptions, OFFER_GALLERY_IMAGES_COUNT} from '../../const';
+import {getOffers} from '../../store/offer-process/selectors';
+import {getNearOffers} from '../../store/near-offers-process/selectors';
+import {getAuthorizationStatus} from '../../store/user-process/selectors';
+import {getReviews} from '../../store/reviews-process/selectors';
 
 function Room(): JSX.Element {
-  const { offers } = useAppSelector(({OFFERS}) => OFFERS);
-  const { nearOffers } = useAppSelector(({NEAR_OFFERS}) => NEAR_OFFERS);
-  const { authorizationStatus } = useAppSelector(({USER}) => USER);
-  const { reviews } = useAppSelector(({REVIEW}) => REVIEW);
+  const offers = useAppSelector(getOffers);
+  const nearOffers = useAppSelector(getNearOffers);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const reviews = useAppSelector(getReviews);
   const params = useParams();
   const dispatch = useAppDispatch();
 
@@ -26,6 +30,12 @@ function Room(): JSX.Element {
       return undefined;
     }
     return offers.find((offer) => (offer as Offer).id === +id);
+  }
+
+  function setFirstSymbolToUpperCase(string:string):string {
+    if (!string) {return string;}
+
+    return string[0].toUpperCase() + string.slice(1);
   }
 
   const offer = getOfferById(params.id);
@@ -46,7 +56,7 @@ function Room(): JSX.Element {
         <section className="property">
           <div className="property__gallery-container container">
             <div className="property__gallery">
-              {offer.images.slice(0, 6).map((image, index) => {
+              {offer.images.slice(0, OFFER_GALLERY_IMAGES_COUNT).map((image, index) => {
                 const keyValue = `${index}-${image}`;
                 return (
                   <div key={keyValue} className="property__image-wrapper">
@@ -74,7 +84,7 @@ function Room(): JSX.Element {
                 <span className="property__rating-value rating__value">{offer.rating}</span>
               </div>
               <ul className="property__features">
-                <li className="property__feature property__feature--entire">{offer.type}</li>
+                <li className="property__feature property__feature--entire">{setFirstSymbolToUpperCase(offer.type)}</li>
                 <li className="property__feature property__feature--bedrooms">{offer.bedrooms}</li>
                 <li className="property__feature property__feature--adults">Max {offer.maxAdults} adults</li>
               </ul>

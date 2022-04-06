@@ -7,7 +7,7 @@ const initialState: ReviewsProcess = {
 };
 
 export const reviewsProcess = createSlice({
-  name: NameSpace.review,
+  name: NameSpace.Review,
   initialState,
   reducers: {
     loadReviewsAction: (state, action) => {

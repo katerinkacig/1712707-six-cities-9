@@ -2,7 +2,7 @@ import {useEffect, useRef} from 'react';
 import leaflet, { LayerGroup, Map as LeafletMap } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
-import useMap from '../../hooks/useMap';
+import useMap from '../../hooks/use-map';
 import {Offer} from '../../types/offer';
 import {URL_ACTIVE_MARKER, URL_MARKER} from '../../const';
 

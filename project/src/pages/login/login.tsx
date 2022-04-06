@@ -6,11 +6,12 @@ import {AuthData} from '../../types/auth-data';
 import {loginAction} from '../../store/api-actions';
 import {AppRoute, AuthorizationStatus} from '../../const';
 import {Navigate} from 'react-router-dom';
+import {getAuthorizationStatus} from '../../store/user-process/selectors';
 
 function Login(): JSX.Element {
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
-  const {authorizationStatus} = useAppSelector(({USER}) => USER);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const dispatch = useAppDispatch();
 
   const onSubmit = (authData: AuthData) => {
@@ -47,6 +48,7 @@ function Login(): JSX.Element {
                   name="email"
                   placeholder="Email"
                   required
+                  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}"
                 />
               </div>
               <div className="login__input-wrapper form__input-wrapper">

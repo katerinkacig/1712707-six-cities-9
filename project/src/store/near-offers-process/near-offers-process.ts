@@ -7,13 +7,13 @@ const initialState: NearOffersProcess = {
 };
 
 export const nearOffersProcess = createSlice({
-  name: NameSpace.nearOffer,
+  name: NameSpace.NearOffer,
   initialState,
   reducers: {
     loadNearOffersAction: (state, action) => {
       state.nearOffers = action.payload;
     },
-    ChangeNearOffersAction: (state, action) => {
+    changeNearOffersAction: (state, action) => {
       const newOffer = action.payload;
       const offerIndex = state.nearOffers.findIndex((offer) => offer.id === newOffer.id);
       state.nearOffers.splice(offerIndex, 1, newOffer);
@@ -21,4 +21,4 @@ export const nearOffersProcess = createSlice({
   },
 });
 
-export const {loadNearOffersAction, ChangeNearOffersAction} = nearOffersProcess.actions;
+export const {loadNearOffersAction, changeNearOffersAction} = nearOffersProcess.actions;

@@ -3,9 +3,12 @@ import PlacesList from '../plases-list/places-list';
 import {offerOptions} from '../../const';
 import Map from '../map/map';
 import {useAppSelector} from '../../hooks';
+import {getActiveCity, getHoveredOffer, getOffers} from '../../store/offer-process/selectors';
 
 function Cities(): JSX.Element {
-  const { activeOffers, activeCity, hoveredOffer } = useAppSelector(({OFFERS}) => OFFERS);
+  const activeOffers = useAppSelector(getOffers);
+  const activeCity = useAppSelector(getActiveCity);
+  const hoveredOffer = useAppSelector(getHoveredOffer);
 
   return (
     <div className="cities">

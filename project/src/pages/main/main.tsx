@@ -3,9 +3,10 @@ import Header from '../../components/header/header';
 import { useAppSelector } from '../../hooks';
 import Cities from '../../components/cities/cities';
 import CitiesEmpty from '../../components/cities-empty/cities-empty';
+import {getActiveOffers} from '../../store/offer-process/selectors';
 
 function Main(): JSX.Element {
-  const { activeOffers } = useAppSelector(({OFFERS}) => OFFERS);
+  const activeOffers = useAppSelector(getActiveOffers);
 
   return (
     <div className="page page--gray page--main">

@@ -1,10 +1,12 @@
 import {useAppSelector, useAppDispatch} from '../../hooks';
 import {changeCityAction} from '../../store/offer-process/offer-process';
+import {getActiveCity, getCities} from '../../store/offer-process/selectors';
 
 
 function CitiesList(): JSX.Element {
   const dispatch = useAppDispatch();
-  const {activeCity, cities} = useAppSelector(({OFFERS}) => OFFERS);
+  const activeCity = useAppSelector(getActiveCity);
+  const cities = useAppSelector(getCities);
 
   return (
     <div className="tabs">

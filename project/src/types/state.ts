@@ -3,8 +3,13 @@ import {AuthorizationStatus} from '../const';
 import {Offer} from './offer';
 import {Review} from './review';
 
+export type ErrorProcess = {
+  isServerError: boolean
+}
+
 export type UserProcess = {
-  authorizationStatus: AuthorizationStatus
+  authorizationStatus: AuthorizationStatus,
+  login: string
 }
 
 export type OfferProcess = {

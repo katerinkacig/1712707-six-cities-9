@@ -1,11 +1,13 @@
 import {AppRoute, AuthorizationStatus} from '../../const';
 import {Link} from 'react-router-dom';
-import {logoutAction} from '../../store/api-actions';
+import {fetchOfferAction, logoutAction} from '../../store/api-actions';
 import {useAppDispatch, useAppSelector} from '../../hooks';
+import {getAuthorizationStatus, getLogin} from '../../store/user-process/selectors';
 
 function HeaderNav(): JSX.Element {
   const dispatch = useAppDispatch();
-  const {authorizationStatus} = useAppSelector(({USER}) => USER);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const login = useAppSelector(getLogin);
   return (
     <nav className="header__nav">
       <ul className="header__nav-list">
@@ -14,16 +16,17 @@ function HeaderNav(): JSX.Element {
           <Link className="header__nav-link header__nav-link--profile" to={AppRoute.Favorites}>
             <div className="header__avatar-wrapper user__avatar-wrapper">
             </div>
-            <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
+            <span className="header__user-name user__name">{login}</span>
           </Link>
         </li>}
         <li className="header__nav-item">
           {(authorizationStatus === AuthorizationStatus.Auth) &&
           <Link
             className="header__nav-link"
-            onClick={(evt) => {
+            onClick={async (evt) => {
               evt.preventDefault();
-              dispatch(logoutAction());
+              await dispatch(logoutAction());
+              dispatch(fetchOfferAction());
             }}
             to={AppRoute.Root}
           >

@@ -4,11 +4,12 @@ import {useAppDispatch, useAppSelector} from '../../hooks';
 import {Offer} from '../../types/offer';
 import {sortActiveOffersAction} from '../../store/offer-process/offer-process';
 import {SortOption} from '../../const';
+import {getActiveCity, getActiveOffers} from '../../store/offer-process/selectors';
 
 function SortOptions ():JSX.Element {
   const dispatch = useAppDispatch();
-  const { activeOffers } = useAppSelector(({OFFERS}) => OFFERS);
-  const { activeCity } = useAppSelector(({OFFERS}) => OFFERS);
+  const activeOffers = useAppSelector(getActiveOffers);
+  const activeCity = useAppSelector(getActiveCity);
   const [isOpen, setIsOpen] = useState(false);
   const [activeOption, setActiveOption] = useState(SortOption.Popular as string);
 
