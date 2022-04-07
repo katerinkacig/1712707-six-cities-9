@@ -17,6 +17,7 @@ import {errorHandle} from '../services/error-handle';
 import {Review} from '../types/review';
 import {CommentData} from '../types/comment-data';
 import {FavoriteOfferData} from '../types/favorite-offer-data';
+import {setErrorProcessAction} from './error-process/error-process';
 
 export const fetchOfferAction = createAsyncThunk(
   'offers/fetch',
@@ -25,7 +26,7 @@ export const fetchOfferAction = createAsyncThunk(
       const { data } = await api.get<Offer[]>(APIRoute.Offers);
       store.dispatch(loadOffersAction(data));
     } catch (error) {
-      errorHandle(error);
+      store.dispatch(setErrorProcessAction(true));
     }
   },
 );

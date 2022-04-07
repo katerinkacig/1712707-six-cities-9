@@ -16,6 +16,7 @@ import {getOffers} from '../../store/offer-process/selectors';
 import {getNearOffers} from '../../store/near-offers-process/selectors';
 import {getAuthorizationStatus} from '../../store/user-process/selectors';
 import {getReviews} from '../../store/reviews-process/selectors';
+import {setFirstSymbolToUpperCase} from '../../utils';
 
 function Room(): JSX.Element {
   const offers = useAppSelector(getOffers);
@@ -30,12 +31,6 @@ function Room(): JSX.Element {
       return undefined;
     }
     return offers.find((offer) => (offer as Offer).id === +id);
-  }
-
-  function setFirstSymbolToUpperCase(string:string):string {
-    if (!string) {return string;}
-
-    return string[0].toUpperCase() + string.slice(1);
   }
 
   const offer = getOfferById(params.id);

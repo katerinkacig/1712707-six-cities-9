@@ -3,6 +3,7 @@ import { Offer, OfferOptions } from '../../types/offer';
 import {AppRoute, bookmarkButtonOptions} from '../../const';
 import {memo} from 'react';
 import BookmarkButton from '../bookmark-button/bookmark-button';
+import {setFirstSymbolToUpperCase} from '../../utils';
 
 type PlaceCardProps = {
   offer: Offer,
@@ -47,7 +48,7 @@ function PlaceCard({offer, options, onMouseEnterHandler, onMouseLeaveHandler}:Pl
         <h2 className="place-card__name">
           <Link to={`${AppRoute.Offer}/${offer.id}`}>{offer.title}</Link>
         </h2>
-        <p className="place-card__type">{offer.type}</p>
+        <p className="place-card__type">{setFirstSymbolToUpperCase(offer.type)}</p>
       </div>
     </article>
   );
